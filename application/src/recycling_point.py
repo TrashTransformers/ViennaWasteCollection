@@ -12,4 +12,4 @@ class RecyclingPointMapper:
         pass
 
     def get_recycling_point(self, classification: ClassificationResult):
-        return mapping[classification.material]
+        return mapping[classification.category]
