@@ -6,7 +6,7 @@ def test_mapping():
     assert map("paper") == "paper container"
 
 
-def map(material: str):
-    classification = ClassificationResult(material)
+def map(category: str):
+    classification = ClassificationResult(category)
     mapper = RecyclingPointMapper()
     return mapper.get_recycling_point(classification)
