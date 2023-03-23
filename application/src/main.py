@@ -1,5 +1,6 @@
-from module import get_hello_text
+def execute():
+    print("Hello Trash")
 
 
 if __name__ == "__main__":
-    print(get_hello_text("Trash"))
+    execute()
