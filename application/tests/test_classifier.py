@@ -1,4 +1,4 @@
-from classifiers.classifier import classify_image
+from trash_ai import classify_image
 
 
 def test_classification_plastic():
