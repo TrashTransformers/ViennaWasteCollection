@@ -4,7 +4,8 @@ from classifiers.classification_common import garbage_classes
 
 
 def classify_with_clip(image: Image):
-    # see details about the model here https://huggingface.co/docs/transformers/model_doc/clip
+    # see details about the model here
+    # https://huggingface.co/docs/transformers/model_doc/clip
     model = CLIPModel.from_pretrained("openai/clip-vit-base-patch32")
     processor = CLIPProcessor.from_pretrained("openai/clip-vit-base-patch32")
 
