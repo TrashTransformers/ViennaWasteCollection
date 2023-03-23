@@ -5,5 +5,6 @@ garbage_classes = [
     "paper",
     "metal",
     "cardboard",
-    "organic",
+    "food",
+    "residual",
 ]
