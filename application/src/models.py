@@ -1,6 +1,6 @@
 class ClassificationResult:
-    def __init__(self, material: StopIteration):
-        self.material = material
+    def __init__(self, category: str):
+        self.category = category
 
 
 class RecyclingPoint:
