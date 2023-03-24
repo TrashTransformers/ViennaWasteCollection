@@ -1,3 +1,4 @@
+import os
 import requests
 import torch
 from PIL import Image
@@ -85,9 +86,7 @@ class ResNet(ImageClassificationBase):
         return torch.sigmoid(self.network(xb))
 
 
-model_path = (
-    "C:\\Projects\\trashy\\ViennaWasteCollection\\application\\src\\final_model.pt"
-)
+model_path = os.getcwd() + "\\src\\final_model.pt"
 
 setattr(__main__, "ResNet", ResNet)
 
