@@ -3,7 +3,7 @@ from transformers import CLIPProcessor, CLIPModel
 from PIL import Image
 
 from models import ClassificationResult
-
+from classifiers.classification_common import garbage_classes, classes_with_category
 
 def classify_with_clip_2(input):
     image = None
@@ -19,15 +19,8 @@ def classify_with_clip_2(input):
     model = CLIPModel.from_pretrained("openai/clip-vit-base-patch32")
     processor = CLIPProcessor.from_pretrained("openai/clip-vit-base-patch32")
 
-    classes_with_category = {
-        # "food": "organic",
-        "glass": "glass",
-        "metal": "metal",
-        "paper": "paper",
-        # "something else": "residual waste",
-        "plastic": "plastic",
-    }
-    classes = list(classes_with_category.keys())
+
+    classes = garbage_classes
     texts = [f"a photo of object(s) made of {elem}" for elem in classes]
     inputs = processor(text=texts, images=image, return_tensors="pt", padding=True)
 

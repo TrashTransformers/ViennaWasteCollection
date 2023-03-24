@@ -1,7 +1,7 @@
 import os
 from classifiers.clip import classify_with_clip
 
-from classifiers.classification_common import garbage_classes
+from classifiers.classification_common import garbage_classes, folders_with_category, file_paths_override
 from classifiers.clip_2 import classify_with_clip_2
 
 
@@ -86,17 +86,7 @@ def performance_evaluation(
     file_paths_override=None,
 ):
     images_folder = "../images/"
-    folders_with_category = {
-        # "biological": "organic",
-        "brown-glass": "glass",
-        "cardboard": "paper",
-        "green-glass": "glass",
-        "white-glass": "glass",
-        "metal": "metal",
-        "paper": "paper",
-        "plastic": "plastic",
-        # "trash": "residual waste",
-    }
+
 
     result = PerformanceResult(garbage_classes)
     limit = 0
@@ -141,16 +131,9 @@ def get_all_files_in_folder(folder_path: str):
     return file_paths
 
 
+
 performance_evaluation(
     limit_per_category=20,
     classification_function=classify_with_clip_2,
-    file_paths_override=[
-        "C:\\Projects\\trashy\\ViennaWasteCollection\\images\\brown-glass\\brown-glass101.jpg",
-        "C:\\Projects\\trashy\\ViennaWasteCollection\\images\\green-glass\\green-glass10.jpg",
-        "C:\\Projects\\trashy\\ViennaWasteCollection\\images\\white-glass\\white-glass101.jpg",
-        # "C:\\Projects\\trashy\\ViennaWasteCollection\\images\\white-glass\\white-glass103.jpg",
-        # "C:\\Projects\\trashy\\ViennaWasteCollection\\images\\white-glass\\white-glass105.jpg",
-        # "C:\\Projects\\trashy\\ViennaWasteCollection\\images\\white-glass\\white-glass108.jpg"
-        # "C:\\Projects\\trashy\\ViennaWasteCollection\\images\\plastic\\plastic103.jpg",
-    ],
+    file_paths_override=file_paths_override
 )
