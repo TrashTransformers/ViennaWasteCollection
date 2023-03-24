@@ -2,7 +2,6 @@ import os
 from classifiers.clip import classify_with_clip
 
 from classifiers.classification_common import garbage_classes
-from classifiers.clip_2 import classify_with_clip_2
 
 
 class Mistake:
@@ -77,7 +76,7 @@ class CategoryResult:
 
 
 def performance_evaluation_full():
-    performance_evaluation(10000, classify_with_clip_2)
+    performance_evaluation(10000, classify_with_clip)
 
 
 def performance_evaluation(
@@ -143,7 +142,7 @@ def get_all_files_in_folder(folder_path: str):
 
 performance_evaluation(
     limit_per_category=20,
-    classification_function=classify_with_clip_2,
+    classification_function=classify_with_clip,
     file_paths_override=[
         "C:\\Projects\\trashy\\ViennaWasteCollection\\images\\brown-glass\\brown-glass101.jpg",
         "C:\\Projects\\trashy\\ViennaWasteCollection\\images\\green-glass\\green-glass10.jpg",
