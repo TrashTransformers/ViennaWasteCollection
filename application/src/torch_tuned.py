@@ -143,6 +143,9 @@ def classify_with_resnet(input):
         prediction = predict_external_image(image)
     except Exception as e:
         print(e)
-        return classify_with_clip(image)
+        result = classify_with_clip(image)
+        if "glass" in result.category:
+            result.category = "glass"
+            return result
 
     return ClassificationResult(prediction, 0)
