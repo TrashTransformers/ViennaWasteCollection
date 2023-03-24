@@ -2,8 +2,11 @@ import requests
 from transformers import CLIPProcessor, CLIPModel
 from PIL import Image
 
+from models import ClassificationResult
 
-def classify_with_clip_2(image: Image):
+
+def classify_with_clip_2(input):
+    image = None
     if isinstance(input, Image.Image):
         image = input
     else:
@@ -17,16 +20,14 @@ def classify_with_clip_2(image: Image):
     processor = CLIPProcessor.from_pretrained("openai/clip-vit-base-patch32")
 
     classes_with_category = {
-        "food": "organic",
-        "brown glass": "colored glass",
-        "green glass": "colored glass",
-        "white glass": "white glass",
+        # "food": "organic",
+        "glass": "glass",
         "metal": "metal",
         "paper": "paper",
-        "something else": "residual waste",
+        # "something else": "residual waste",
         "plastic": "plastic",
     }
-    classes = classes_with_category.keys()
+    classes = list(classes_with_category.keys())
     texts = [f"a photo of object(s) made of {elem}" for elem in classes]
     inputs = processor(text=texts, images=image, return_tensors="pt", padding=True)
 
@@ -38,4 +39,4 @@ def classify_with_clip_2(image: Image):
         logits_per_image.softmax(dim=1).detach().numpy()
     )  # we can take the softmax to get the label prob
     determined_class = classes[probs.argmax()]
-    return classes_with_category[determined_class]
+    return ClassificationResult(classes_with_category[determined_class])

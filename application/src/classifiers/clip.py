@@ -19,7 +19,7 @@ def classify_with_clip(input):
     model = CLIPModel.from_pretrained("openai/clip-vit-base-patch32")
     processor = CLIPProcessor.from_pretrained("openai/clip-vit-base-patch32")
 
-    classes = garbage_classes
+    classes = [garbage_classes]
     texts = [f"a photo of object(s) made of {elem}" for elem in classes]
     inputs = processor(text=texts, images=image, return_tensors="pt", padding=True)
 

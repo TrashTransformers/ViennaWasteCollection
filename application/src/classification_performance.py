@@ -1,9 +1,8 @@
 import os
 from classifiers.clip import classify_with_clip
 
-# from classifiers.clip_2 import classify_with_clip_2
-
 from classifiers.classification_common import garbage_classes
+from classifiers.clip_2 import classify_with_clip_2
 
 
 class Mistake:
@@ -57,14 +56,15 @@ def performance_evaluation(
 ):
     images_folder = "../images/"
     folders_with_category = {
-        "biological": "organic",
-        "brown-glass": "colored glass",
+        # "biological": "organic",
+        "brown-glass": "glass",
         "cardboard": "paper",
-        "green-glass": "colored glass",
+        "green-glass": "glass",
+        "white-glass": "glass",
         "metal": "metal",
         "paper": "paper",
         "plastic": "plastic",
-        "trash": "residual waste",
+        # "trash": "residual waste",
     }
 
     result = PerformanceResult(garbage_classes)
@@ -78,12 +78,14 @@ def performance_evaluation(
             if limit > limit_per_category:
                 break
             limit += 1
-            classification = classification_function(image_file).category
+            classification_result = classification_function(image_file).category
             result.image_with_category_processed(category)
-            if classification == category:
+            if classification_result == category:
                 result.successfull_classification(category)
             else:
-                result.mistake(category, classification, image_file)
+                result.mistake(category, classification_result, image_file)
+            print(f"Current accuracy: {result.get_accuracy()*100:.2f}%")
+
     result.print_mistakes()
     print(f"Accuracy: {result.get_accuracy()*100:.2f}%")
 
@@ -94,4 +96,6 @@ def get_all_files_in_folder(folder_path: str):
     return file_paths
 
 
-performance_evaluation(limit_per_category=2, classification_function=classify_with_clip)
+performance_evaluation(
+    limit_per_category=10, classification_function=classify_with_clip_2
+)
