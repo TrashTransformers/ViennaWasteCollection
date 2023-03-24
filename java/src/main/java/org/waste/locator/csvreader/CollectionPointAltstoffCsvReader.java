@@ -5,18 +5,19 @@ import org.waste.locator.model.CollectionPointCategorie;
 import org.waste.locator.model.Coordinates;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CollectionPointAltstoffCsvReader {
 
-    public List<CollectionPoint> readInput(String filePath) {
+    public List<CollectionPoint> readInput(InputStream inputStream) {
         int lineNumber = 0;
         String line = "";
         List<CollectionPoint> collectionPoints = new ArrayList<>();
         try {
-            BufferedReader br = new BufferedReader(new FileReader(filePath));
+            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
             while ((line = br.readLine()) != null) {
 
                 if (lineNumber != 0) {
@@ -25,28 +26,28 @@ public class CollectionPointAltstoffCsvReader {
 
                     String[] input = line.split(",");
 
-                    String coordinates =input[1];
+                    String coordinates = input[1];
                     collectionPoint.setCoordinates(createCoordinates(coordinates));
 
-                    String adresse =input[3] +" " +input[4] + " "+ input[5] + "; " + input[2] + ". Bezirk";
+                    String adresse = input[3] + " " + input[4] + " " + input[5] + "; " + input[2] + ". Bezirk";
 
-                    collectionPoint.setAddress(adresse );
+                    collectionPoint.setAddress(adresse);
 
-                    if (Integer.parseInt(input[8]) == 1){
+                    if (Integer.parseInt(input[8]) == 1) {
                         collectionPoint.addCollectionPointCategorie(CollectionPointCategorie.PAPER);
                     }
-                    if (Integer.parseInt(input[9]) == 1){
+                    if (Integer.parseInt(input[9]) == 1) {
                         collectionPoint.addCollectionPointCategorie(CollectionPointCategorie.BIOMUELL);
-                    };
-                    if (Integer.parseInt(input[11]) == 1){
+                    }
+                    if (Integer.parseInt(input[11]) == 1) {
                         collectionPoint.addCollectionPointCategorie(CollectionPointCategorie.GLASS);
-                    };
-                    if (Integer.parseInt(input[12]) == 1){
+                    }
+                    if (Integer.parseInt(input[12]) == 1) {
                         collectionPoint.addCollectionPointCategorie(CollectionPointCategorie.PLASTIC);
-                    };
+                    }
 
                 }
-                lineNumber =+1;
+                lineNumber = +1;
             }
         } catch (Exception e) {
             e.printStackTrace();

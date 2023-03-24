@@ -11,25 +11,29 @@ import org.waste.locator.entity.CollectionPoint;
 import org.waste.locator.model.CollectionPointCategorie;
 import org.waste.locator.model.Coordinates;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class WasteTypeService {
-    public static final String FILE_PATH_ALTSTOFF = "C:\\dev\\hackaton\\ViennaWastePointLocator\\Java\\src\\test\\resources\\ALTSTOFFSAMMLUNGOGD.csv";
-    public static final String FILE_PATH_MISTPLATZ = "C:\\dev\\hackaton\\ViennaWastePointLocator\\Java\\src\\test\\resources\\MISTPLATZOGD.csv";
-    public static final String FILE_PATH_PROBLEMSTOFF = "C:\\dev\\hackaton\\ViennaWastePointLocator\\Java\\src\\test\\resources\\PROBLEMSTOFFOGD.csv";
-
+    public static final String FILENAME_ALTSTOFF = "ALTSTOFFSAMMLUNGOGD.csv";
+    public static final String FILENAME_MISTPLATZ = "MISTPLATZOGD.csv";
+    public static final String FILENAME_PROBLEMSTOFF = "PROBLEMSTOFFOGD.csv";
 
     private List<CollectionPoint> readCsvFiles(){
         CollectionPointAltstoffCsvReader altstoff = new CollectionPointAltstoffCsvReader();
-        List<CollectionPoint> collectionPoints = altstoff.readInput(FILE_PATH_ALTSTOFF);
+        InputStream altstoffInputStream = getClass().getClassLoader().getResourceAsStream(FILENAME_ALTSTOFF);
+        InputStream mistplatzInputStream = getClass().getClassLoader().getResourceAsStream(FILENAME_MISTPLATZ);
+        InputStream problemStoff = getClass().getClassLoader().getResourceAsStream(FILENAME_PROBLEMSTOFF);
+
+        List<CollectionPoint> collectionPoints = altstoff.readInput(altstoffInputStream);
 
         CollectionPointMistplatzCsvReader mistplatz = new CollectionPointMistplatzCsvReader();
-        mistplatz.readInput(FILE_PATH_MISTPLATZ, collectionPoints);
+        mistplatz.readInput(mistplatzInputStream, collectionPoints);
 
         CollectionPointProblemstoffCsvReader problemstoff = new CollectionPointProblemstoffCsvReader();
-        problemstoff.readInput(FILE_PATH_PROBLEMSTOFF, collectionPoints);
+        problemstoff.readInput(problemStoff, collectionPoints);
 
         return collectionPoints;
 
