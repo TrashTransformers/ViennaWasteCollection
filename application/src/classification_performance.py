@@ -132,7 +132,7 @@ def get_all_files_in_folder(folder_path: str):
 
 
 performance_evaluation(
-    limit_per_category=20,
+    limit_per_category=5000,
     classification_function=classify_with_clip,
     file_paths_override=file_paths_override
 )
