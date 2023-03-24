@@ -39,7 +39,30 @@ def classify_with_clip(input):
     probs = (
         logits_per_image.softmax(dim=1).detach().numpy()
     )  # we can take the softmax to get the label prob
-    determined_class = classes[probs.argmax()]
-    return ClassificationResult(
-        classes_with_category[determined_class], probs[0][probs.argmax()]
-    )
+    determined_class = classes_with_category[probs.argmax()]
+    prob = probs[0][probs.argmax()]
+    if prob < 70:
+        # get the second best
+        probs[0][probs.argmax()] = 0
+        second_best_determined_class = classes[probs.argmax()]
+        classes = [determined_class, second_best_determined_class]
+        text = [f"a photo of an object made of {elem}" for elem in classes]
+        probs = get_probs(text)
+        prob = probs[0][probs.argmax()]
+        determined_class = classes_with_category[probs.argmax()]
+        prob = probs[0][probs.argmax()]
+    return ClassificationResult(classes_with_category[determined_class], prob)
+
+
+def get_probs(text: str, image):
+    inputs = processor(text=[text], images=image, return_tensors="pt", padding=True)
+
+    outputs = model(**inputs)
+    logits_per_image = (
+        outputs.logits_per_image
+    )  # this is the image-text similarity score
+    probs = (
+        logits_per_image.softmax(dim=1).detach().numpy()
+    )  # we can take the softmax to get the label prob
+
+    return probs
