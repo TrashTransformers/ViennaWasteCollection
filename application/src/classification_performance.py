@@ -60,6 +60,10 @@ class CategoryResult:
         self.count = 0
 
 
+def performance_evaluation_full():
+    performance_evaluation(10000, classify_with_clip_2)
+
+
 def performance_evaluation(
     limit_per_category: int = 10,
     classification_function=classify_with_clip,
