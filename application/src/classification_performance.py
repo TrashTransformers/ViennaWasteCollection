@@ -1,7 +1,12 @@
 import os
 from classifiers.clip import classify_with_clip
 
-from classifiers.classification_common import garbage_classes, folders_with_category, file_paths_override
+from classifiers.classification_common import (
+    garbage_classes,
+    folders_with_category,
+    file_paths_override,
+)
+from torch_tuned import classify_with_resnet
 
 
 class Mistake:
@@ -86,7 +91,6 @@ def performance_evaluation(
 ):
     images_folder = "../images/"
 
-
     result = PerformanceResult(garbage_classes)
     limit = 0
     for folder, category in folders_with_category.items():
@@ -130,9 +134,8 @@ def get_all_files_in_folder(folder_path: str):
     return file_paths
 
 
-
 performance_evaluation(
     limit_per_category=5000,
-    classification_function=classify_with_clip,
-    file_paths_override=file_paths_override
+    classification_function=classify_with_resnet,
+    file_paths_override=file_paths_override,
 )
