@@ -2,7 +2,6 @@ import os
 from classifiers.clip import classify_with_clip
 
 from classifiers.classification_common import (
-    garbage_classes,
     folders_with_category,
     file_paths_override,
 )
@@ -88,12 +87,15 @@ def performance_evaluation(
     limit_per_category: int = 10,
     classification_function=classify_with_clip,
     file_paths_override=None,
+    categories_override=None,
 ):
     images_folder = "../images/"
-
-    result = PerformanceResult(garbage_classes)
+    categories_to_use = folders_with_category
+    if categories_override is not None:
+        categories_to_use = categories_override
+    result = PerformanceResult(set(categories_to_use.values()))
     limit = 0
-    for folder, category in folders_with_category.items():
+    for folder, category in categories_to_use.items():
         sub_folder = images_folder + folder
         image_files = get_all_files_in_folder(sub_folder)
 
@@ -108,7 +110,9 @@ def performance_evaluation(
             classification_result = classification_function(image_file)
             classification_category = classification_result.category
             result.image_with_category_processed(category)
-            if classification_category == category:
+            if classification_category == category or mapped_category_matches(
+                classification_category, category
+            ):
                 result.successfull_classification(category)
             else:
                 result.mistake(
@@ -128,14 +132,38 @@ def performance_evaluation(
     return result
 
 
+def mapped_category_matches(classification_category, category):
+    if "glass" in category:
+        return classification_category == "glass"
+
+    if category == "cardboard":
+        return classification_category == "paper"
+    return False
+
+
 def get_all_files_in_folder(folder_path: str):
     file_names = os.listdir(folder_path)
     file_paths = [os.path.abspath(folder_path + "/" + name) for name in file_names]
     return file_paths
 
 
-performance_evaluation(
-    limit_per_category=5000,
-    classification_function=classify_with_resnet,
-    file_paths_override=file_paths_override,
-)
+test_resnet = True
+
+if test_resnet:
+    performance_evaluation(
+        limit_per_category=5000,
+        classification_function=classify_with_resnet,
+        categories_override={
+            "brown-glass": "glass",
+            "white-glass": "glass",
+            "paper": "paper",
+            "plastic": "plastic",
+            "metal": "metal",
+        },
+    )
+else:
+    performance_evaluation(
+        limit_per_category=5000,
+        classification_function=classify_with_clip,
+        file_paths_override=file_paths_override,
+    )
