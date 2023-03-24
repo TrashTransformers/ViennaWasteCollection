@@ -3,13 +3,10 @@ from recycling_point import RecyclingPointMapper
 
 
 def test_mapping():
-    assert map("colored glass") == "colored old glass container"
-    assert map("white glass") == "white old glass container"
+    assert map("glass") == "old glass container"
     assert map("plastic") == "yellow container"
     assert map("paper") == "paper container"
-    assert map("organic") == "bio container"
     assert map("metal") == "yellow container"
-    assert map("residual") == "residual container"
 
 
 def map(category: str):

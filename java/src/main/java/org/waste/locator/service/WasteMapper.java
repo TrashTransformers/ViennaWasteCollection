@@ -7,7 +7,7 @@ public class WasteMapper {
     public static CollectionPointCategorie getTypeFromInput(String disposalType) {
         switch (disposalType) {
             case "plastic":
-            case "metall":
+            case "metal":
                 return CollectionPointCategorie.PLASTIC;
             case "glass":
                 return CollectionPointCategorie.GLASS;

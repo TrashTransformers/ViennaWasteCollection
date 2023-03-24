@@ -20,9 +20,9 @@ public class WasteRecyclingIntegrationTest {
 
     @Test
     public void shouldReturnGlasCollectionPointNagarroClosest() {
-        String result = callService("glass", "48.17111801511212, 16.332124234017812");
+        String result = callService("glass", "48.17111801511212 16.332124234017812");
 
-        assertThat("Altglas - Adresse: Telephonweg neben 412; 22. Bezirk").isEqualTo(result);
+        assertThat("Altglas - Adresse: Wagenseilgasse neben 5; 12. Bezirk").isEqualTo(result);
     }
 
     private String callService(String wasteType, String coordinates) {

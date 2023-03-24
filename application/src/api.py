@@ -22,7 +22,6 @@ app.add_middleware(
 class ApiResult:
     category: str
     confidence: str
-    collectionPointType: str
 
 
 @app.post("/classify/")
@@ -33,4 +32,4 @@ async def create_file(file: UploadFile = File(...)):
         request_object_content = await file.read()
         img = Image.open(io.BytesIO(request_object_content))
         result = classify_with_clip(img)
-        return ApiResult(result.category, result.probability, "TODO")
+        return ApiResult(result.category, result.probability)

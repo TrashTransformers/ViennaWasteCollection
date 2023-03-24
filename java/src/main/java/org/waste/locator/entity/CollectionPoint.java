@@ -8,7 +8,7 @@ import java.util.List;
 
 public class CollectionPoint {
     //Altstoff, Mistplatz, Problemstoff, LEICHTVERPACKUNG, Mistplatz
-    private List<CollectionPointCategorie> collectionPointCategorieList = new ArrayList<>();
+    private final List<CollectionPointCategorie> collectionPointCategorieList = new ArrayList<>();
     private String address;
     private Coordinates coordinates;
 

@@ -1,13 +1,10 @@
 from models import ClassificationResult
 
 mapping = {
-    "colored glass": "colored old glass container",
-    "white glass": "white old glass container",
+    "glass": "old glass container",
     "plastic": "yellow container",
     "paper": "paper container",
-    "organic": "bio container",
     "metal": "yellow container",
-    "residual": "residual container",
 }
 
 
