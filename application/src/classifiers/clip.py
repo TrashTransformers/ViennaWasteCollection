@@ -3,6 +3,7 @@ from transformers import CLIPProcessor, CLIPModel
 from PIL import Image
 
 from models import ClassificationResult
+from classifiers.classification_common import garbage_classes, classes_with_category
 
 # see details about the model here
 # https://huggingface.co/docs/transformers/model_doc/clip
@@ -20,16 +21,8 @@ def classify_with_clip(input):
         else:
             image = Image.open(input).convert("RGB")
 
-    classes_with_category = {
-        # "food": "organic",
-        "glass": "glass",
-        "metal": "metal",
-        "paper": "paper",
-        # "something else": "residual waste",
-        "plastic": "plastic",
-    }
-    classes = list(classes_with_category.keys())
-    texts = [f"a photo of object(s) made of {elem}" for elem in classes]
+
+    texts = [f"a photo of object(s) made of {elem}" for elem in garbage_classes]
     inputs = processor(text=texts, images=image, return_tensors="pt", padding=True)
 
     outputs = model(**inputs)
@@ -39,7 +32,7 @@ def classify_with_clip(input):
     probs = (
         logits_per_image.softmax(dim=1).detach().numpy()
     )  # we can take the softmax to get the label prob
-    determined_class = classes[probs.argmax()]
+    determined_class = garbage_classes[probs.argmax()]
     return ClassificationResult(
         classes_with_category[determined_class], probs[0][probs.argmax()]
     )
