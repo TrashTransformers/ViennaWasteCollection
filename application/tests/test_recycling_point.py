@@ -13,6 +13,6 @@ def test_mapping():
 
 
 def map(category: str):
-    classification = ClassificationResult(category)
+    classification = ClassificationResult(category, 1.0)
     mapper = RecyclingPointMapper()
     return mapper.get_recycling_point(classification)

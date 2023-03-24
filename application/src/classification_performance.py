@@ -6,10 +6,13 @@ from classifiers.clip_2 import classify_with_clip_2
 
 
 class Mistake:
-    def __init__(self, image_path: str, category: str, classification: str):
+    def __init__(
+        self, image_path: str, category: str, classification: str, probability: float
+    ):
         self.image_path = image_path
         self.category = category
         self.classification = classification
+        self.probability = probability
 
 
 class PerformanceResult:
@@ -31,8 +34,10 @@ class PerformanceResult:
         result.success_count += 1
         self.success_count += 1
 
-    def mistake(self, category, classification, image_path):
-        self.mistakes.append(Mistake(image_path, category, classification))
+    def mistake(self, category, classification, image_path, prob):
+        mistake = Mistake(image_path, category, classification, prob)
+        self.mistakes.append(mistake)
+        print_mistakes([mistake])
 
     def get_accuracy(self):
         if self.count == 0:
@@ -59,7 +64,8 @@ def print_mistakes_as_python_list(mistakes):
 def print_mistakes(mistakes):
     for mistake in mistakes:
         print(
-            f"Category: {mistake.category}, classification: {mistake.classification}, image: {mistake.image_path}"
+            f"Category: {mistake.category}, classification: {mistake.classification}"
+            + f" probabilty: {mistake.probability} image: {mistake.image_path}"
         )
 
 
@@ -106,14 +112,17 @@ def performance_evaluation(
             if limit > limit_per_category:
                 break
             limit += 1
-            classification_result = classification_function(image_file).category
+            classification_result = classification_function(image_file)
+            classification_category = classification_result.category
             result.image_with_category_processed(category)
-            if classification_result == category:
+            if classification_category == category:
                 result.successfull_classification(category)
             else:
-                result.mistake(category, classification_result, image_file)
-                print(
-                    f"Mistake: Category: {category}, classification: {classification_result}, image: {image_file}"
+                result.mistake(
+                    category,
+                    classification_category,
+                    image_file,
+                    classification_result.probability,
                 )
             print(
                 f"Current accuracy: {result.get_accuracy()*100:.2f}%. Count: {result.count}"
@@ -137,17 +146,11 @@ performance_evaluation(
     classification_function=classify_with_clip_2,
     file_paths_override=[
         "C:\\Projects\\trashy\\ViennaWasteCollection\\images\\brown-glass\\brown-glass101.jpg",
-        # "C:\\Projects\\trashy\\ViennaWasteCollection\\images\\cardboard\\cardboard10.jpg",
-        # "C:\\Projects\\trashy\\ViennaWasteCollection\\images\\cardboard\\cardboard100.jpg",
-        # "C:\\Projects\\trashy\\ViennaWasteCollection\\images\\cardboard\\cardboard102.jpg",
-        # "C:\\Projects\\trashy\\ViennaWasteCollection\\images\\green-glass\\green-glass10.jpg",
-        # "C:\\Projects\\trashy\\ViennaWasteCollection\\images\\white-glass\\white-glass101.jpg",
+        "C:\\Projects\\trashy\\ViennaWasteCollection\\images\\green-glass\\green-glass10.jpg",
+        "C:\\Projects\\trashy\\ViennaWasteCollection\\images\\white-glass\\white-glass101.jpg",
         # "C:\\Projects\\trashy\\ViennaWasteCollection\\images\\white-glass\\white-glass103.jpg",
-        # "C:\\Projects\\trashy\\ViennaWasteCollection\\images\\metal\\metal102.jpg",
-        # "C:\\Projects\\trashy\\ViennaWasteCollection\\images\\metal\\metal103.jpg",
-        # "C:\\Projects\\trashy\\ViennaWasteCollection\\images\\paper\\paper1.jpg",
-        # "C:\\Projects\\trashy\\ViennaWasteCollection\\images\\paper\\paper100.jpg",
-        # "C:\\Projects\\trashy\\ViennaWasteCollection\\images\\plastic\\plastic101.jpg",
+        # "C:\\Projects\\trashy\\ViennaWasteCollection\\images\\white-glass\\white-glass105.jpg",
+        # "C:\\Projects\\trashy\\ViennaWasteCollection\\images\\white-glass\\white-glass108.jpg"
         # "C:\\Projects\\trashy\\ViennaWasteCollection\\images\\plastic\\plastic103.jpg",
     ],
 )
