@@ -108,6 +108,7 @@ def performance_evaluation(
     result.print_mistakes()
     result.print_mistakes_as_python_list()
     print(f"Accuracy: {result.get_accuracy()*100:.2f}%")
+    return result
 
 
 def get_all_files_in_folder(folder_path: str):
