@@ -39,4 +39,6 @@ def classify_with_clip_2(input):
         logits_per_image.softmax(dim=1).detach().numpy()
     )  # we can take the softmax to get the label prob
     determined_class = classes[probs.argmax()]
-    return ClassificationResult(classes_with_category[determined_class])
+    return ClassificationResult(
+        classes_with_category[determined_class], probs[0][probs.argmax()]
+    )
