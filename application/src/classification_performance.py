@@ -35,6 +35,8 @@ class PerformanceResult:
         self.mistakes.append(Mistake(image_path, category, classification))
 
     def get_accuracy(self):
+        if self.count == 0:
+            return 0
         return self.success_count / self.count
 
     def print_mistakes(self):
@@ -42,6 +44,12 @@ class PerformanceResult:
             print(
                 f"Category: {mistake.category}, classification: {mistake.classification}, image: {mistake.image_path}"
             )
+
+    def print_mistakes_as_python_list(self):
+        print("[")
+        for mistake in self.mistakes:
+            print(f"'{mistake.image_path}',")
+        print("]")
 
 
 class CategoryResult:
@@ -52,7 +60,9 @@ class CategoryResult:
 
 
 def performance_evaluation(
-    limit_per_category: int = 10, classification_function=classify_with_clip
+    limit_per_category: int = 10,
+    classification_function=classify_with_clip,
+    file_paths_override=None,
 ):
     images_folder = "../images/"
     folders_with_category = {
@@ -75,6 +85,9 @@ def performance_evaluation(
 
         limit = 0
         for image_file in image_files:
+            if file_paths_override is not None:
+                if image_file not in file_paths_override:
+                    continue
             if limit > limit_per_category:
                 break
             limit += 1
@@ -84,10 +97,16 @@ def performance_evaluation(
                 result.successfull_classification(category)
             else:
                 result.mistake(category, classification_result, image_file)
-            print(f"Current accuracy: {result.get_accuracy()*100:.2f}%")
+                print(
+                    f"Mistake: Category: {category}, classification: {classification_result}, image: {image_file}"
+                )
+            print(
+                f"Current accuracy: {result.get_accuracy()*100:.2f}%. Count: {result.count}"
+            )
 
     result.print_mistakes()
     print(f"Accuracy: {result.get_accuracy()*100:.2f}%")
+    result.print_mistakes_as_python_list()
 
 
 def get_all_files_in_folder(folder_path: str):
@@ -97,5 +116,7 @@ def get_all_files_in_folder(folder_path: str):
 
 
 performance_evaluation(
-    limit_per_category=10, classification_function=classify_with_clip_2
+    limit_per_category=5,
+    classification_function=classify_with_clip_2,
+    # file_paths_override=[],
 )
