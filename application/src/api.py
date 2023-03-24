@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from fastapi import FastAPI, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -17,6 +18,13 @@ app.add_middleware(
 )
 
 
+@dataclass
+class ApiResult:
+    category: str
+    confidence: str
+    collectionPointType: str
+
+
 @app.post("/classify/")
 async def create_file(file: UploadFile = File(...)):
     if not file:
@@ -24,4 +32,5 @@ async def create_file(file: UploadFile = File(...)):
     else:
         request_object_content = await file.read()
         img = Image.open(io.BytesIO(request_object_content))
-        return classify_with_clip(img)
+        result = classify_with_clip(img)
+        return ApiResult(result.category, result.probability, "TODO")

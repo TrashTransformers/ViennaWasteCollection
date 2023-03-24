@@ -2,7 +2,6 @@ import os
 from classifiers.clip import classify_with_clip
 
 from classifiers.classification_common import garbage_classes, folders_with_category, file_paths_override
-from classifiers.clip_2 import classify_with_clip_2
 
 
 class Mistake:
@@ -77,7 +76,7 @@ class CategoryResult:
 
 
 def performance_evaluation_full():
-    performance_evaluation(10000, classify_with_clip_2)
+    performance_evaluation(10000, classify_with_clip)
 
 
 def performance_evaluation(
@@ -134,6 +133,6 @@ def get_all_files_in_folder(folder_path: str):
 
 performance_evaluation(
     limit_per_category=20,
-    classification_function=classify_with_clip_2,
+    classification_function=classify_with_clip,
     file_paths_override=file_paths_override
 )
