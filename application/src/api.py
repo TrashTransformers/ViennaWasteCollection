@@ -1,9 +1,20 @@
 from fastapi import FastAPI, File, UploadFile
+from fastapi.middleware.cors import CORSMiddleware
+
 import io
 from classifiers.clip import classify_with_clip
 from PIL import Image
 
 app = FastAPI(description="Garbage classification API")
+
+origins = ["*"]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.post("/classify/")
