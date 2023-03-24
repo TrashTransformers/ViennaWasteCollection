@@ -4,6 +4,11 @@ from PIL import Image
 
 from models import ClassificationResult
 
+# see details about the model here
+# https://huggingface.co/docs/transformers/model_doc/clip
+model = CLIPModel.from_pretrained("openai/clip-vit-base-patch32")
+processor = CLIPProcessor.from_pretrained("openai/clip-vit-base-patch32")
+
 
 def classify_with_clip(input):
     image = None
@@ -14,10 +19,6 @@ def classify_with_clip(input):
             image = Image.open(requests.get(input, stream=True).raw)
         else:
             image = Image.open(input).convert("RGB")
-    # see details about the model here
-    # https://huggingface.co/docs/transformers/model_doc/clip
-    model = CLIPModel.from_pretrained("openai/clip-vit-base-patch32")
-    processor = CLIPProcessor.from_pretrained("openai/clip-vit-base-patch32")
 
     classes_with_category = {
         # "food": "organic",
