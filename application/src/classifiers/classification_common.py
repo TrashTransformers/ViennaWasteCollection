@@ -3,7 +3,14 @@ garbage_classes = [
     "white glass",
     "colored glass",
     "paper",
-    "metal",
     "organic",
-    "residual waste",
+    "electrical appliance",
+    "wood",
+    "bulky waste",
+    "medicine",
+    "medicine colored glass",
+    "battery",
+    "accumulator",
+    "energy-saving lamp",
+    "metal"
 ]
