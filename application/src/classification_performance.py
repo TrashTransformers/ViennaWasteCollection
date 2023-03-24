@@ -1,6 +1,8 @@
 import os
+from classifiers.clip import classify_with_clip
 
-from trash_ai import classify_image
+# from classifiers.clip_2 import classify_with_clip_2
+
 from classifiers.classification_common import garbage_classes
 
 
@@ -51,7 +53,7 @@ class CategoryResult:
 
 
 def performance_evaluation(
-    limit_per_category: int = 10, classification_function=classify_image
+    limit_per_category: int = 10, classification_function=classify_with_clip
 ):
     images_folder = "../images/"
     folders_with_category = {
@@ -92,4 +94,4 @@ def get_all_files_in_folder(folder_path: str):
     return file_paths
 
 
-performance_evaluation(limit_per_category=2)
+performance_evaluation(limit_per_category=2, classification_function=classify_with_clip)

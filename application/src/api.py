@@ -1,6 +1,6 @@
 from fastapi import FastAPI, File, UploadFile
 import io
-from trash_ai import classify_image
+from classifiers.clip import classify_with_clip
 from PIL import Image
 
 app = FastAPI(description="Garbage classification API")
@@ -13,4 +13,4 @@ async def create_file(file: UploadFile = File(...)):
     else:
         request_object_content = await file.read()
         img = Image.open(io.BytesIO(request_object_content))
-        return classify_image(img)
+        return classify_with_clip(img)
