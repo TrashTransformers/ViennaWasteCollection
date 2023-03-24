@@ -5,16 +5,17 @@ import org.waste.locator.model.CollectionPointCategorie;
 import org.waste.locator.model.Coordinates;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.List;
 
 public class CollectionPointMistplatzCsvReader {
 
-    public List<CollectionPoint> readInput(String filePath, List<CollectionPoint> collectionPoints) {
+    public List<CollectionPoint> readInput(InputStream inputStream, List<CollectionPoint> collectionPoints) {
         int lineNumber = 0;
         String line = "";
         try {
-            BufferedReader br = new BufferedReader(new FileReader(filePath));
+            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
             while ((line = br.readLine()) != null) {
 
                 if (lineNumber != 0) {
