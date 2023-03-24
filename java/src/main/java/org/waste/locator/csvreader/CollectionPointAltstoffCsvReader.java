@@ -7,6 +7,7 @@ import org.waste.locator.model.Coordinates;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class CollectionPointAltstoffCsvReader {
         String line = "";
         List<CollectionPoint> collectionPoints = new ArrayList<>();
         try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
+            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
             while ((line = br.readLine()) != null) {
 
                 if (lineNumber != 0) {
