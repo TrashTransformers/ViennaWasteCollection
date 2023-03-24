@@ -16,7 +16,7 @@ classes = [
     "paper",  # cardboad - paper
     "other",  # wrong label
     "glass",  # glass
-    "trash",  # metal
+    "metal",  # metal
     "paper",  # paper
     "plastic",  # plastic
     "clothes",  # wrong label
