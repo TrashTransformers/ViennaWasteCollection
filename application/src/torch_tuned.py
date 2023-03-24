@@ -6,6 +6,7 @@ import torchvision.models as models
 import torch.nn as nn
 import torch.nn.functional as F
 import torchvision.transforms as transforms
+from classifiers.clip import classify_with_clip
 
 from models import ClassificationResult
 import __main__
@@ -119,11 +120,14 @@ transformations = transforms.Compose(
 
 
 def predict_external_image(image):
-
-    example_image = transformations(image)
-    prediction = predict_image(example_image, model)
-    print("The image resembles", prediction + ".")
-    return prediction
+    try:
+        example_image = transformations(image)
+        prediction = predict_image(example_image, model)
+        print("The image resembles", prediction + ".")
+        return prediction
+    except Exception as e:
+        print(e)
+        return
 
 
 def classify_with_resnet(input):
@@ -135,5 +139,10 @@ def classify_with_resnet(input):
             image = Image.open(requests.get(input, stream=True).raw)
         else:
             image = Image.open(input)
-    prediction = predict_external_image(image)
+    try:
+        prediction = predict_external_image(image)
+    except Exception as e:
+        print(e)
+        return classify_with_clip(image)
+
     return ClassificationResult(prediction, 0)
