@@ -1,0 +1,3 @@
+from classification_performance import performance_evaluation_full
+
+performance_evaluation_full()
