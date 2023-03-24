@@ -48,7 +48,8 @@ class PerformanceResult:
     def print_mistakes_as_python_list(self):
         print("[")
         for mistake in self.mistakes:
-            print(f"'{mistake.image_path}',")
+            path = mistake.image_path.replace("/", "//")
+            print(f"'{path}',")
         print("]")
 
 
@@ -105,8 +106,8 @@ def performance_evaluation(
             )
 
     result.print_mistakes()
-    print(f"Accuracy: {result.get_accuracy()*100:.2f}%")
     result.print_mistakes_as_python_list()
+    print(f"Accuracy: {result.get_accuracy()*100:.2f}%")
 
 
 def get_all_files_in_folder(folder_path: str):
@@ -116,7 +117,21 @@ def get_all_files_in_folder(folder_path: str):
 
 
 performance_evaluation(
-    limit_per_category=5,
+    limit_per_category=20,
     classification_function=classify_with_clip_2,
-    # file_paths_override=[],
+    file_paths_override=[
+        "C:\\Projects\\trashy\\ViennaWasteCollection\\images\\brown-glass\\brown-glass101.jpg",
+        # "C:\\Projects\\trashy\\ViennaWasteCollection\\images\\cardboard\\cardboard10.jpg",
+        # "C:\\Projects\\trashy\\ViennaWasteCollection\\images\\cardboard\\cardboard100.jpg",
+        # "C:\\Projects\\trashy\\ViennaWasteCollection\\images\\cardboard\\cardboard102.jpg",
+        # "C:\\Projects\\trashy\\ViennaWasteCollection\\images\\green-glass\\green-glass10.jpg",
+        # "C:\\Projects\\trashy\\ViennaWasteCollection\\images\\white-glass\\white-glass101.jpg",
+        # "C:\\Projects\\trashy\\ViennaWasteCollection\\images\\white-glass\\white-glass103.jpg",
+        # "C:\\Projects\\trashy\\ViennaWasteCollection\\images\\metal\\metal102.jpg",
+        # "C:\\Projects\\trashy\\ViennaWasteCollection\\images\\metal\\metal103.jpg",
+        # "C:\\Projects\\trashy\\ViennaWasteCollection\\images\\paper\\paper1.jpg",
+        # "C:\\Projects\\trashy\\ViennaWasteCollection\\images\\paper\\paper100.jpg",
+        # "C:\\Projects\\trashy\\ViennaWasteCollection\\images\\plastic\\plastic101.jpg",
+        # "C:\\Projects\\trashy\\ViennaWasteCollection\\images\\plastic\\plastic103.jpg",
+    ],
 )
