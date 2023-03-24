@@ -5,12 +5,31 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "env": {
+                "PYTHONPATH": "${workspaceRoot}/src"
+            },
+            "name": "Python: FastAPI",
+            "type": "python",
+            "request": "launch",
+            "module": "uvicorn",
+            "args": [
+                "src.api:app"
+            ],
+            "jinja": true,
+            "justMyCode": true,
+            "serverReadyAction": {
+                "pattern": "running on http",
+                "uriFormat": "http://localhost:8000/docs",
+                "action": "openExternally"
+            }
+        },
+        {
             "name": "Python: Current File",
             "type": "python",
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
             "justMyCode": true
-        }
+        },
     ]
 }
