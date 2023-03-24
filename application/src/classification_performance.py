@@ -39,18 +39,28 @@ class PerformanceResult:
             return 0
         return self.success_count / self.count
 
-    def print_mistakes(self):
+    def print_mistakes_for_category_mismatch(self, cat_1: str, cat_2: str):
+        print(f"Misclassified between {cat_1} and {cat_2}")
+        mistakes = []
         for mistake in self.mistakes:
-            print(
-                f"Category: {mistake.category}, classification: {mistake.classification}, image: {mistake.image_path}"
-            )
+            if mistake.category == cat_1 and mistake.classification == cat_2:
+                mistakes.append(mistake)
+        print_mistakes_as_python_list(mistakes)
 
-    def print_mistakes_as_python_list(self):
-        print("[")
-        for mistake in self.mistakes:
-            path = mistake.image_path.replace("/", "//")
-            print(f"'{path}',")
-        print("]")
+
+def print_mistakes_as_python_list(mistakes):
+    print("[")
+    for mistake in mistakes:
+        path = mistake.image_path.replace("/", "//")
+        print(f"'{path}',")
+    print("]")
+
+
+def print_mistakes(mistakes):
+    for mistake in mistakes:
+        print(
+            f"Category: {mistake.category}, classification: {mistake.classification}, image: {mistake.image_path}"
+        )
 
 
 class CategoryResult:
@@ -109,9 +119,10 @@ def performance_evaluation(
                 f"Current accuracy: {result.get_accuracy()*100:.2f}%. Count: {result.count}"
             )
 
-    result.print_mistakes()
-    result.print_mistakes_as_python_list()
+    print_mistakes(result.mistakes)
+    print_mistakes_as_python_list(result.mistakes)
     print(f"Accuracy: {result.get_accuracy()*100:.2f}%")
+    result.print_mistakes_for_category_mismatch("glass", "metal")
     return result
 
 
