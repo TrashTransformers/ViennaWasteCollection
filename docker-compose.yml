@@ -21,7 +21,7 @@ services:
     build: 
       context: web 
       dockerfile: Dockerfile
-    image: trash-transformers/locate:latest
+    image: trash-transformers/app:latest
     ports: 
       - 4200:4200
     depends_on:
