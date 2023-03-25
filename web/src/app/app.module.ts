@@ -16,14 +16,14 @@ import { Configuration as LocateConfiguration, ConfigurationParameters as Locate
 
 export function classifyApiConfigFactory(): ClassifyConfiguration {
   const params: ClassifyConfigurationParameters = {
-    basePath: environment.basePath,
+    basePath: environment.basePathClassify,
   };
   return new ClassifyConfiguration(params);
 }
 
 export function locateApiConfigFactory(): LocateConfiguration {
   const params: LocateConfigurationParameters = {
-    basePath: environment.basePath,
+    basePath: environment.basePathLocate,
   };
   return new LocateConfiguration(params);
 }

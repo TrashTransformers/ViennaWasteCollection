@@ -1,4 +1,5 @@
 export const environment = {
     production: false,
-    basePath: 'http://localhost:8081',
+    basePathClassify: 'http://localhost:8000',
+    basePathLocate: 'http://localhost:8081',
   };

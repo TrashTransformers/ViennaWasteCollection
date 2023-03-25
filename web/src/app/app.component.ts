@@ -13,7 +13,7 @@ export class AppComponent {
 
   // Inject the generated Angular service as a dependency of this class
   constructor(private classifyService: ClassifyService,
-    private wasteTypeControllerService: WasteTypeControllerService) { }
+    private wasteTypeControllerService: WasteTypeControllerService) {}
 
   classify() {
     this.classifyService.createFileClassifyPost(new Blob()).subscribe(x => {
@@ -26,5 +26,4 @@ export class AppComponent {
       console.log(x);
     });
   }
-
 }
