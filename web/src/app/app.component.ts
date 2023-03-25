@@ -16,11 +16,15 @@ export class AppComponent {
     private wasteTypeControllerService: WasteTypeControllerService) { }
 
   classify() {
-    // this.classifyService.createFileClassifyPost(new Blob()).subscribe(x => {
-    //   console.log(x);
-    // });
-    this.wasteTypeControllerService.calculateNearestCollectionPoint("plastic","10.5,17,3").subscribe(x => {
+    this.classifyService.createFileClassifyPost(new Blob()).subscribe(x => {
       console.log(x);
     });
   }
+
+  locate() {
+    this.wasteTypeControllerService.calculateNearestCollectionPoint("plastic","10.5,17.3").subscribe(x => {
+      console.log(x);
+    });
+  }
+
 }
