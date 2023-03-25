@@ -1,0 +1,11 @@
+version: '3'
+services:
+  locator:
+    container_name: locator
+    build: 
+      context: java 
+      dockerfile: Dockerfile
+    image: trash-transformers/locate:latest
+    ports: 
+      - 8081:8081
+

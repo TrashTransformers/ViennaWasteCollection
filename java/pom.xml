@@ -15,6 +15,7 @@
     <packaging>jar</packaging>
 
     <name>waste-disposal-location</name>
+    
 
     <properties>
         <java.version>17</java.version>
@@ -78,6 +79,7 @@
     </dependencies>
 
     <build>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
