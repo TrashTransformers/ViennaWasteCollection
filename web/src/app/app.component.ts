@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { DefaultService as ClassifyService } from './core/api/classify'
+import { Component, Input } from '@angular/core';
 import { WasteTypeControllerService } from './core/api/locate'
+import { Classification } from './file-upload.component';
 
 @Component({
   selector: 'app-root',
@@ -11,19 +11,20 @@ export class AppComponent {
 
   title = 'WebApp';
 
-  // Inject the generated Angular service as a dependency of this class
-  constructor(private classifyService: ClassifyService,
-    private wasteTypeControllerService: WasteTypeControllerService) {}
+  category: string = "";
+  confidence: string = "";
 
-  classify() {
-    this.classifyService.createFileClassifyPost(new Blob()).subscribe(x => {
+  // Inject the generated Angular service as a dependency of this class
+  constructor(private wasteTypeControllerService: WasteTypeControllerService) { }
+
+  locate() {
+    this.wasteTypeControllerService.calculateNearestCollectionPoint("plastic", "10.5,17.3").subscribe(x => {
       console.log(x);
     });
   }
 
-  locate() {
-    this.wasteTypeControllerService.calculateNearestCollectionPoint("plastic","10.5,17.3").subscribe(x => {
-      console.log(x);
-    });
+  onClassification(event:Classification){
+    this.category = event.category;
+    this.confidence = event.confidence.toString();
   }
 }

@@ -1,0 +1,16 @@
+<input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+
+<div class="file-upload">
+
+    <span>Select a image to classify </span>
+
+    <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
+        <mat-icon>attach_file</mat-icon>
+    </button>
+
+    <div class="file-preview" *ngIf="imageURL && imageURL !== ''">
+        <img [src]="imageURL" [alt]="fileName">
+        <p>{{fileName}}</p>
+    </div>
+
+</div>
