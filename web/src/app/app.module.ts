@@ -6,6 +6,28 @@ import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { HttpClientModule } from '@angular/common/http';
+import { environment } from '../environments/environment';
+import { ApiModule as ClassifyModule } from './core/api/classify/api.module';
+import { Configuration as ClassifyConfiguration, ConfigurationParameters as ClassifyConfigurationParameters} from './core/api/classify';
+import { ApiModule as LocateModule } from './core/api/locate/api.module';
+import { Configuration as LocateConfiguration, ConfigurationParameters as LocateConfigurationParameters} from './core/api/locate';
+
+
+export function classifyApiConfigFactory(): ClassifyConfiguration {
+  const params: ClassifyConfigurationParameters = {
+    basePath: environment.basePath,
+  };
+  return new ClassifyConfiguration(params);
+}
+
+export function locateApiConfigFactory(): LocateConfiguration {
+  const params: LocateConfigurationParameters = {
+    basePath: environment.basePath,
+  };
+  return new LocateConfiguration(params);
+}
+
 @NgModule({
   declarations: [
     AppComponent
@@ -19,7 +41,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
     }),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+
+    // make sure to import the HttpClientModule in the AppModule only,
+    // see https://github.com/angular/angular/issues/20575
+    HttpClientModule,
+    ClassifyModule.forRoot(classifyApiConfigFactory),
+    LocateModule.forRoot(locateApiConfigFactory),
   ],
   providers: [],
   bootstrap: [AppComponent]

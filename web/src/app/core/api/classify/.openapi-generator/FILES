@@ -1,0 +1,17 @@
+.gitignore
+.openapi-generator-ignore
+README.md
+api.module.ts
+api/api.ts
+api/default.service.ts
+api/default.serviceInterface.ts
+configuration.ts
+encoder.ts
+git_push.sh
+index.ts
+model/hTTPValidationError.ts
+model/locationInner.ts
+model/models.ts
+model/validationError.ts
+param.ts
+variables.ts
