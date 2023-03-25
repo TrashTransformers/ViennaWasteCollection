@@ -15,7 +15,7 @@ services:
       dockerfile: Dockerfile
     image: trash-transformers/classify:latest
     ports: 
-      - 8000:8000
+      - 8000:80
   app:
     container_name: app
     build: 
