@@ -1,7 +1,7 @@
 FROM eclipse-temurin:17-jdk-jammy
 
 WORKDIR /app
-
+VOLUME /locator-volume
 COPY .mvn/ .mvn
 COPY mvnw pom.xml ./
 RUN ./mvnw dependency:resolve

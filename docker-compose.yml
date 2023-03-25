@@ -8,4 +8,24 @@ services:
     image: trash-transformers/locate:latest
     ports: 
       - 8081:8081
+  classifier:
+    container_name: classifier
+    build: 
+      context: application
+      dockerfile: Dockerfile
+    image: trash-transformers/classify:latest
+    ports: 
+      - 8000:8000
+  app:
+    container_name: app
+    build: 
+      context: web 
+      dockerfile: Dockerfile
+    image: trash-transformers/locate:latest
+    ports: 
+      - 4200:4200
+    depends_on:
+    - locator
+    - classifier
+
 
