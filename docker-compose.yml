@@ -16,14 +16,14 @@ services:
     image: trash-transformers/classify:latest
     ports: 
       - 8000:80
-  app:
-    container_name: app
+  web:
+    container_name: web
     build: 
       context: web 
       dockerfile: Dockerfile
-    image: trash-transformers/app:latest
+    image: trash-transformers/web:latest
     ports: 
-      - 4200:4200
+      - 4200:80
     depends_on:
     - locator
     - classifier
