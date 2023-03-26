@@ -87,7 +87,7 @@ class ResNet(ImageClassificationBase):
         return torch.sigmoid(self.network(xb))
 
 
-model_path = os.getcwd() + "/final_model.pt"
+model_path = os.getcwd() + "\\src\\final_model.pt"
 
 setattr(__main__, "ResNet", ResNet)
 
