@@ -38,5 +38,4 @@ export class FileUploadComponent {
 
 export interface Classification {
     category: string;
-    confidence: number;
 }

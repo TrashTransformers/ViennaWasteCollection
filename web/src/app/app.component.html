@@ -155,6 +155,29 @@
     margin-left: 60px;
   }
 
+  .card-container.max {
+    width: 100%;
+    margin-top: 0;
+  }
+
+  #map {
+    width: 100%;
+    min-height: 300px;
+    border-radius: 4px;
+    border: 1px solid #eee;
+    background-color: #fafafa;
+    margin: 0 8px 16px;
+    padding: 16px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s ease-in-out;
+  }
+
+  #searchBox {
+    margin: 0 8px 16px;
+  }
+
   a,
   a:visited,
   a:hover {
@@ -261,7 +284,7 @@
         transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
     </g>
   </svg>
-  <span>Trash Transformers</span>
+  <span>Vienna Waste Collection</span>
   <div class="spacer"></div>
   <!-- <a aria-label="Angular on YouTube" target="_blank" rel="noopener" href="https://youtube.com/angular" title="YouTube">
     <svg id="youtube-logo" height="24" width="24" data-name="Logo" xmlns="http://www.w3.org/2000/svg"
@@ -275,21 +298,25 @@
 
 <div class="content" role="main">
 
-  <h2>Theme 1: Environmental protection</h2>
-
   <!-- Highlight Card -->
   <div class="card-container">
     <div class="card highlight-card">
-      <p>Guide My Garbage: Use image recognition to identify the type of garbage from an image, <br>and give the
-        classification
-        as well as the correct type of the collection point for that garbage's material for optimal recycling.
+      <p>Vienna Waste Collection uses image recognition to identify the type of garbage from an image, and give the
+        classification as well as the correct type of the collection point for that garbage's material for optimal
+        recycling.
       </p>
-      <br>
-      <p>Bonus points for adding multi-material garbage types!</p>
     </div>
   </div>
 
-  <file-upload requiredFileType="image/png" (classification)="onClassification($event)"></file-upload>
+  <div class="card-container max">
+    <div id="map"></div>
+  </div>
+  <div class="card-container max">
+    <span>Exact Address &nbsp;</span><input type="text" autoComplete="true" id="searchBox">
+  </div>
+  <div id="searchBoxContainer"></div>
+
+  <file-upload (classification)="onClassification($event)"></file-upload>
 
   <div class="card-container" *ngIf="!!category">
     <p>The item has been classified as: <b>{{category}}</b></p>
@@ -298,7 +325,6 @@
   <div class="card-container" *ngIf="!!closestAddress">
     <div class="card highlight-card">
       <p>The closest address to dispose it is</p>
-      <br>
       <p><i>{{closestAddress}}</i></p>
     </div>
   </div>
