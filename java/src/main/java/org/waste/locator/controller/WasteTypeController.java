@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.waste.locator.entity.CollectionPoint;
+import org.waste.locator.model.WasteCollectionPointResponse;
 import org.waste.locator.service.WasteMapper;
 import org.waste.locator.service.WasteTypeService;
 
@@ -17,7 +18,7 @@ public class WasteTypeController {
     private WasteTypeService service;
 
     @GetMapping("/v1/{wasteType}/{currentCoordinates}")
-    public String calculateNearestCollectionPoint(
+    public WasteCollectionPointResponse calculateNearestCollectionPoint(
             @PathVariable String wasteType,
             @PathVariable String currentCoordinates) {
         CollectionPoint collectionPoint;
@@ -26,6 +27,9 @@ public class WasteTypeController {
         } catch (Exception e) {
             throw new IllegalArgumentException("Error in Calculation with input " + currentCoordinates + "; " + wasteType + "\n" + e.getMessage());
         }
-        return WasteMapper.getTypeFromInput(wasteType).getDescription() + " - Adresse: " + collectionPoint.getAddress();
+        return new WasteCollectionPointResponse(collectionPoint.getCoordinate().getX(),
+                collectionPoint.getCoordinate().getY(),
+                collectionPoint.getAddress(),
+                WasteMapper.getTypeFromInput(wasteType).getDescription());
     }
 }
