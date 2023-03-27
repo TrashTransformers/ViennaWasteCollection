@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.waste.locator.entity.CollectionPoint;
 import org.waste.locator.model.WasteCollectionPointResponse;
 import org.waste.locator.service.WasteTypeService;
@@ -24,7 +23,7 @@ public class WasteRecyclingIntegrationTest {
         WasteCollectionPointResponse result = callService("glass", coordinates);
 
         assertThat("Altglas").isEqualTo(result.getTypeOfDisposal());
-        assertThat("Telephonweg neben 412; 22. Bezirk").isEqualTo(result.getAdresse());
+        assertThat("Telephonweg neben 412; 22. Bezirk").isEqualTo(result.getAddress());
     }
 
     @Test
@@ -32,9 +31,9 @@ public class WasteRecyclingIntegrationTest {
         WasteCollectionPointResponse result = callService("glass", "48.17111801511212 16.332124234017812");
 
         assertThat("Altglas").isEqualTo(result.getTypeOfDisposal());
-        assertThat("Wagenseilgasse neben 5; 12. Bezirk").isEqualTo(result.getAdresse());
-        assertThat(48.17033988701541).isEqualTo(result.getxCoordinates());
-        assertThat(16.331734916937084).isEqualTo(result.getyCoordinates());
+        assertThat("Wagenseilgasse neben 5; 12. Bezirk").isEqualTo(result.getAddress());
+        assertThat(48.17033988701541).isEqualTo(result.getLongitude());
+        assertThat(16.331734916937084).isEqualTo(result.getLatitude());
     }
 
     private WasteCollectionPointResponse callService(String wasteType, String coordinates) {
@@ -52,7 +51,7 @@ public class WasteRecyclingIntegrationTest {
         WasteCollectionPointResponse result = callService("plastic", coordinates);
 
         assertThat("Gelbe Tonne").isEqualTo(result.getTypeOfDisposal());
-        assertThat("Telephonweg neben 412; 22. Bezirk").isEqualTo(result.getAdresse());
+        assertThat("Telephonweg neben 412; 22. Bezirk").isEqualTo(result.getAddress());
     }
 
     @Test
@@ -60,7 +59,7 @@ public class WasteRecyclingIntegrationTest {
         WasteCollectionPointResponse result = callService("paper", coordinates);
 
         assertThat("Altpapier").isEqualTo(result.getTypeOfDisposal());
-        assertThat("Telephonweg neben 412; 22. Bezirk").isEqualTo(result.getAdresse());
+        assertThat("Telephonweg neben 412; 22. Bezirk").isEqualTo(result.getAddress());
     }
 
     @Test
@@ -68,7 +67,7 @@ public class WasteRecyclingIntegrationTest {
         WasteCollectionPointResponse result = callService("metal", coordinates);
 
         assertThat("Gelbe Tonne").isEqualTo(result.getTypeOfDisposal());
-        assertThat("Telephonweg neben 412; 22. Bezirk").isEqualTo(result.getAdresse());
+        assertThat("Telephonweg neben 412; 22. Bezirk").isEqualTo(result.getAddress());
     }
 
     @Test

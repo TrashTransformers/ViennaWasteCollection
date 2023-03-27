@@ -1,20 +1,26 @@
 package org.waste.locator.model;
 
-public record WasteCollectionPointResponse(double xCoordinates, double yCoordinates, String adresse,
+import com.fasterxml.jackson.annotation.JsonAlias;
+
+public record WasteCollectionPointResponse(double longitude, double latitude, String address,
                                            String typeOfDisposal) {
 
-    public double getxCoordinates() {
-        return xCoordinates;
+    @JsonAlias("longitude")
+    public double getLongitude() {
+        return longitude;
     }
 
-    public double getyCoordinates() {
-        return yCoordinates;
+    @JsonAlias("latitude")
+    public double getLatitude() {
+        return latitude;
     }
 
-    public String getAdresse() {
-        return adresse;
+    @JsonAlias("address")
+    public String getAddress() {
+        return address;
     }
 
+    @JsonAlias("typeOfDisposal")
     public String getTypeOfDisposal() {
         return typeOfDisposal;
     }
