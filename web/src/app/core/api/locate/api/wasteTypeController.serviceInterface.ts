@@ -13,6 +13,7 @@ import { HttpHeaders }                                       from '@angular/comm
 
 import { Observable }                                        from 'rxjs';
 
+import { WasteCollectionPointResponse } from '../model/models';
 
 
 import { Configuration }                                     from '../configuration';
@@ -29,6 +30,6 @@ export interface WasteTypeControllerServiceInterface {
      * @param wasteType 
      * @param currentCoordinates 
      */
-    calculateNearestCollectionPoint(wasteType: string, currentCoordinates: string, extraHttpRequestParams?: any): Observable<string>;
+    calculateNearestCollectionPoint(wasteType: string, currentCoordinates: string, extraHttpRequestParams?: any): Observable<WasteCollectionPointResponse>;
 
 }

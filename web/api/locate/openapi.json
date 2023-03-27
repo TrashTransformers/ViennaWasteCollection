@@ -41,7 +41,7 @@
                         "content": {
                             "*/*": {
                                 "schema": {
-                                    "type": "string"
+                                    "$ref": "#/components/schemas/WasteCollectionPointResponse"
                                 }
                             }
                         }
@@ -50,5 +50,27 @@
             }
         }
     },
-    "components": {}
+    "components": {
+        "schemas": {
+            "WasteCollectionPointResponse": {
+                "type": "object",
+                "properties": {
+                    "longitude": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "latitude": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "address": {
+                        "type": "string"
+                    },
+                    "typeOfDisposal": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
 }
