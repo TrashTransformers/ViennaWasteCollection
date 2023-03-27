@@ -1,6 +1,7 @@
 :host {
+ width: 100%;   
  text-align: center;
- margin-top: 1rem;
+ display: block;
 }
 
 .file-input {
@@ -9,4 +10,5 @@
 
 .file-preview img {
     width: 300px;
+    margin: 16px 0;
 }

@@ -1,5 +1,5 @@
 import { DefaultService as ClassifyService } from './core/api/classify'
-import { Component, EventEmitter, Output } from "@angular/core";
+import { Component, EventEmitter, Input, Output, ViewChild } from "@angular/core";
 
 @Component({
     selector: 'file-upload',
@@ -8,9 +8,13 @@ import { Component, EventEmitter, Output } from "@angular/core";
 })
 export class FileUploadComponent {
 
+    @ViewChild('fileUpload') fileUpload: any;
+        
     fileName = '';
 
     imageURL = '';
+
+    category = '';
 
     @Output() classification = new EventEmitter<Classification>();
 
@@ -30,9 +34,18 @@ export class FileUploadComponent {
             reader.readAsDataURL(file)
 
             this.classifyService.createFileClassifyPost(file).subscribe((result: Classification) => {
+                this.category = result.category;
                 this.classification.emit(result);
             });
         }
+    }
+
+    clear(){
+        this.imageURL = "";
+        this.fileName = '';
+        this.imageURL = '';    
+        this.category = '';
+        this.fileUpload.nativeElement.value = '';
     }
 }
 

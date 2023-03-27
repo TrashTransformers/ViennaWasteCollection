@@ -6,8 +6,11 @@ import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MatIconModule } from '@angular/material/icon'
-import { MatInputModule } from '@angular/material/input'
+import { MatCardModule } from '@angular/material/card'
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { HttpClientModule } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { ApiModule as ClassifyModule } from './core/api/classify/api.module';
@@ -15,6 +18,7 @@ import { Configuration as ClassifyConfiguration, ConfigurationParameters as Clas
 import { ApiModule as LocateModule } from './core/api/locate/api.module';
 import { Configuration as LocateConfiguration, ConfigurationParameters as LocateConfigurationParameters} from './core/api/locate';
 import { FileUploadComponent } from './file-upload.component';
+
 
 
 export function classifyApiConfigFactory(): ClassifyConfiguration {
@@ -45,8 +49,11 @@ export function locateApiConfigFactory(): LocateConfiguration {
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
     }),
+    MatCardModule,
     MatIconModule,
     MatInputModule,
+    MatButtonModule,
+    MatFormFieldModule,
     BrowserAnimationsModule,
 
     // make sure to import the HttpClientModule in the AppModule only,

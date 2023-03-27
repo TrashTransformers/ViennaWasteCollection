@@ -1,9 +1,9 @@
 import "bingmaps";
 import { initialize, loadModule, whenLoaded, moduleNames } from "bing-maps-loader";
 import { WasteCollectionPointResponse, WasteTypeControllerService } from './core/api/locate'
-import { Classification } from './file-upload.component';
+import { Classification, FileUploadComponent } from './file-upload.component';
 import { environment } from "src/environments/environment";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 
 @Component({
   selector: 'app-root',
@@ -11,9 +11,9 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+  
+  @ViewChild('fileUpload') fileUpload: any;
 
-  category: string = "";
-  confidence: string = "";
   closestAddress: string = "";
   searchBox: string = "#searchBox";
   searchBoxContainer: string = "#searchBoxContainer";
@@ -61,8 +61,7 @@ export class AppComponent implements OnInit {
           this.searchBox,
           this.searchBoxContainer,
           (result) => {
-            this.map.entities.remove(this.yourPin);
-            this.map.entities.remove(this.binPin);
+            this.clear();
             this.yourPin = new Microsoft.Maps.Pushpin(result.location, {
               title: "You",
               text: "5",
@@ -74,14 +73,17 @@ export class AppComponent implements OnInit {
       });
   }
 
-  onClassification(event: Classification) {
-    this.category = event.category;
-    const location = this.yourPin.getLocation();
-    this.callApi(location.longitude, location.latitude);
+  onReloadCurrentPage() {
+    window.location.reload();
   }
 
-  callApi(longitude: number, latitude: number) {
-    this.wasteTypeControllerService.calculateNearestCollectionPoint(this.category, `${latitude},${longitude}`).subscribe((result:any) => {
+  onClassification(event: Classification) {
+    const location = this.yourPin.getLocation();
+    this.callApi(event.category, location.longitude, location.latitude);
+  }
+
+  callApi(category :string, longitude: number, latitude: number) {
+    this.wasteTypeControllerService.calculateNearestCollectionPoint(category, `${latitude},${longitude}`).subscribe((result:any) => {
       var reader = new FileReader();
       reader.onload = () => {
         const response = JSON.parse(reader.result as string) as WasteCollectionPointResponse;
@@ -103,5 +105,12 @@ export class AppComponent implements OnInit {
       }
       reader.readAsText(<Blob>result);
     });
+  }
+
+  clear() {
+    this.closestAddress = "";    
+    this.map.entities.remove(this.yourPin);
+    this.map.entities.remove(this.binPin);
+    (<FileUploadComponent>this.fileUpload).clear();
   }
 }

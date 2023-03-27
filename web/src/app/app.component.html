@@ -84,80 +84,8 @@
     margin-right: 8px;
   }
 
-  .card svg.material-icons path {
-    fill: #888;
-  }
-
-  .card-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 16px;
-  }
-
-  .card {
-    all: unset;
-    border-radius: 4px;
-    border: 1px solid #eee;
-    background-color: #fafafa;
-    height: auto;
-    width: 200px;
-    margin: 0 8px 16px;
-    padding: 16px;
-    display: list-item;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    transition: all 0.2s ease-in-out;
-    line-height: 24px;
-  }
-
-  .card-container .card:not(:last-child) {
-    margin-right: 0;
-  }
-
-  .card.card-small {
-    height: 16px;
-    width: 168px;
-  }
-
-  .card-container .card:not(.highlight-card) {
-    cursor: pointer;
-  }
-
-  .card-container .card:not(.highlight-card):hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
-  }
-
-  .card-container .card:not(.highlight-card):hover .material-icons path {
-    fill: rgb(105, 103, 103);
-  }
-
-  .card.highlight-card {
-    background-color: #1976d2;
-    color: white;
-    font-weight: 600;
-    border: none;
-    width: auto;
-    min-width: 30%;
-    position: relative;
+  .center {
     text-align: center;
-  }
-
-  .card-container.address p {
-    width: 100%;
-    float: none;
-    text-align: center;
-  }
-
-  .card.card.highlight-card span {
-    margin-left: 60px;
-  }
-
-  .card-container.max {
-    width: 100%;
-    margin-top: 0;
   }
 
   #map {
@@ -166,16 +94,13 @@
     border-radius: 4px;
     border: 1px solid #eee;
     background-color: #fafafa;
-    margin: 0 8px 16px;
-    padding: 16px;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
     transition: all 0.2s ease-in-out;
   }
 
-  #searchBox {
-    margin: 0 8px 16px;
+  #searchBoxContainer {
+    position: absolute;
+    display: block;
+    left: calc(50% - 232px);
   }
 
   a,
@@ -233,58 +158,45 @@
     z-index: -10;
     width: 1920px;
   }
-
-  /* Responsive Styles */
-  @media screen and (max-width: 767px) {
-
-    .card-container>*:not(.circle-link),
-
-    .card:not(.highlight-card) {
-      margin: 8px 0;
-    }
-
-    .card.highlight-card span {
-      margin-left: 72px;
-    }
-  }
 </style>
 
 <!-- Toolbar -->
 <div class="toolbar" role="banner">
-  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="128"
-    height="60" viewBox="60 60 10 128" xml:space="preserve">
-
-    <defs>
-    </defs>
-    <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;"
-      transform="translate(94.33151750972763 94.3315175097276) scale(0.74 0.74)">
-      <path
-        d="M 48.877 89.165 c -0.566 0 -1.122 -0.222 -1.541 -0.641 l -14.255 -14.26 c -1.23 -1.231 -1.23 -3.236 0 -4.468 l 14.255 -14.262 c 0.628 -0.628 1.562 -0.812 2.379 -0.474 c 0.818 0.339 1.347 1.13 1.347 2.016 v 6.624 h 18.005 c 0.357 0 0.688 0.19 0.866 0.5 l 5.755 9.966 l 0 0 c 0.746 1.292 0.745 2.835 -0.001 4.127 s -2.082 2.063 -3.573 2.063 l -21.052 0.001 v 6.623 c 0 0.886 -0.528 1.678 -1.347 2.017 C 49.443 89.11 49.158 89.165 48.877 89.165 z M 48.873 56.893 c -0.066 0 -0.107 0.041 -0.123 0.057 L 34.496 71.211 c -0.452 0.452 -0.452 1.188 0 1.64 L 48.75 87.11 c 0.021 0.021 0.091 0.084 0.199 0.04 c 0.112 -0.047 0.112 -0.139 0.112 -0.169 v -7.623 c 0 -0.553 0.447 -1 1 -1 l 22.052 -0.001 c 0.769 0 1.457 -0.397 1.842 -1.063 c 0.384 -0.666 0.385 -1.461 0 -2.127 l -5.466 -9.466 H 50.062 c -0.553 0 -1 -0.447 -1 -1 v -7.624 c 0 -0.03 0 -0.121 -0.112 -0.168 C 48.921 56.897 48.896 56.893 48.873 56.893 z"
-        style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;"
-        transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
-      <path
-        d="M 79.373 78.291 c -0.333 0 -0.658 -0.166 -0.848 -0.468 c -0.286 -0.455 -0.161 -1.055 0.282 -1.357 c 0.755 -0.516 1.244 -1.603 0.718 -2.681 L 71.362 59.65 c -0.339 -0.587 -0.429 -1.271 -0.254 -1.926 c 0.176 -0.655 0.596 -1.202 1.183 -1.542 l 1.299 -0.75 l 0 0 l 8.726 -5.038 c 1.211 -0.697 2.768 -0.283 3.468 0.93 l 2.919 5.056 c 1.729 2.995 1.726 6.714 -0.011 9.706 l -4.51 7.771 c -1.035 1.783 -2.525 3.271 -4.31 4.3 C 79.715 78.248 79.543 78.291 79.373 78.291 z M 74.59 57.165 l -1.299 0.75 c -0.124 0.071 -0.213 0.188 -0.25 0.327 c -0.037 0.139 -0.019 0.283 0.054 0.408 l 8.196 14.196 c 0.185 0.377 0.308 0.769 0.374 1.163 c 0.288 -0.365 0.552 -0.752 0.786 -1.156 l 4.51 -7.771 c 1.378 -2.374 1.382 -5.325 0.009 -7.702 l -2.919 -5.056 c -0.148 -0.258 -0.479 -0.347 -0.735 -0.197 L 74.59 57.165 z"
-        style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;"
-        transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
-      <path
-        d="M 69.321 47.246 c -0.27 0 -0.543 -0.034 -0.814 -0.107 l -19.479 -5.215 c -0.855 -0.229 -1.482 -0.943 -1.599 -1.821 c -0.116 -0.879 0.305 -1.733 1.072 -2.176 l 5.736 -3.313 l -9.003 -15.593 c -0.178 -0.31 -0.178 -0.69 0 -1 l 5.754 -9.966 c 0.746 -1.292 2.081 -2.063 3.573 -2.064 h 0.001 c 1.491 0 2.827 0.771 3.574 2.063 l 10.526 18.231 l 5.735 -3.312 c 0.768 -0.442 1.718 -0.381 2.42 0.159 c 0.703 0.54 1.008 1.441 0.778 2.296 l -5.222 19.474 C 71.997 46.313 70.717 47.246 69.321 47.246 z M 47.255 18.521 L 56.47 34.48 c 0.133 0.229 0.168 0.502 0.1 0.759 s -0.236 0.475 -0.466 0.607 l -6.603 3.812 c -0.026 0.015 -0.105 0.061 -0.09 0.182 c 0.017 0.12 0.104 0.144 0.133 0.151 l 19.479 5.215 c 0.616 0.164 1.254 -0.203 1.42 -0.82 l 5.222 -19.475 c 0.008 -0.03 0.031 -0.118 -0.064 -0.191 c -0.099 -0.076 -0.176 -0.028 -0.202 -0.014 l -6.602 3.812 c -0.478 0.275 -1.091 0.112 -1.366 -0.366 L 56.404 9.055 c -0.385 -0.666 -1.073 -1.063 -1.842 -1.063 h -0.001 c -0.769 0 -1.457 0.398 -1.841 1.064 l 0 0 L 47.255 18.521 z M 51.854 8.556 h 0.01 H 51.854 z"
-        style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;"
-        transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
-      <path
-        d="M 38.376 20.33 c -0.44 0 -0.874 -0.115 -1.265 -0.341 l -10.025 -5.788 c -1.212 -0.7 -1.629 -2.255 -0.929 -3.467 l 2.918 -5.056 c 1.727 -2.989 4.94 -4.844 8.39 -4.844 c 0.007 0 0.014 0 0.021 0 l 8.985 0.02 c 2.061 0.004 4.094 0.551 5.88 1.582 c 0.465 0.269 0.635 0.857 0.385 1.333 c -0.251 0.475 -0.829 0.668 -1.317 0.436 c -0.822 -0.395 -2.01 -0.277 -2.681 0.718 l -8.16 14.138 c -0.339 0.587 -0.887 1.007 -1.542 1.183 C 38.818 20.301 38.596 20.33 38.376 20.33 z M 37.466 2.834 c -2.738 0 -5.288 1.472 -6.658 3.844 l -2.918 5.056 c -0.072 0.125 -0.091 0.27 -0.054 0.408 c 0.037 0.139 0.126 0.255 0.251 0.327 l 8.726 5.038 l 0 0 l 1.299 0.75 c 0.125 0.072 0.269 0.092 0.408 0.054 c 0.139 -0.037 0.255 -0.126 0.327 -0.25 l 8.196 -14.197 c 0.235 -0.349 0.509 -0.652 0.812 -0.907 c -0.458 -0.066 -0.922 -0.101 -1.387 -0.102 l -8.985 -0.02 C 37.477 2.834 37.471 2.834 37.466 2.834 z"
-        style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;"
-        transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
-      <path
-        d="M 17.056 62.674 H 5.548 c -1.492 0 -2.828 -0.771 -3.574 -2.063 s -0.746 -2.835 0 -4.127 l 10.525 -18.231 L 6.763 34.94 c -0.767 -0.443 -1.188 -1.297 -1.072 -2.175 c 0.116 -0.878 0.744 -1.594 1.599 -1.823 l 19.477 -5.215 c 1.681 -0.455 3.417 0.551 3.869 2.233 l 5.224 19.477 c 0.229 0.855 -0.076 1.757 -0.779 2.296 c -0.703 0.538 -1.652 0.601 -2.419 0.159 l -5.736 -3.313 l -9.002 15.594 C 17.744 62.483 17.414 62.674 17.056 62.674 z M 27.584 27.62 c -0.099 0 -0.2 0.013 -0.3 0.04 L 7.808 32.875 c -0.029 0.008 -0.118 0.032 -0.134 0.152 c -0.016 0.121 0.063 0.167 0.089 0.182 l 6.602 3.811 c 0.479 0.276 0.642 0.888 0.366 1.366 L 3.706 57.483 c -0.384 0.666 -0.384 1.461 0 2.127 c 0.385 0.666 1.073 1.063 1.842 1.063 h 10.931 l 9.213 -15.959 c 0.133 -0.229 0.351 -0.397 0.607 -0.466 c 0.254 -0.07 0.528 -0.033 0.759 0.1 l 6.603 3.812 c 0.026 0.016 0.106 0.06 0.202 -0.013 c 0.097 -0.074 0.073 -0.163 0.065 -0.192 l -5.224 -19.476 C 28.565 27.962 28.096 27.62 27.584 27.62 z"
-        style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;"
-        transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
-      <path
-        d="M 20.283 82.839 h -5.837 c -3.459 0 -6.678 -1.863 -8.4 -4.862 l -4.476 -7.791 C 0.542 68.398 0 66.364 0 64.303 c 0 -0.537 0.425 -0.979 0.962 -0.999 c 0.546 -0.026 0.994 0.388 1.035 0.923 c 0.07 0.912 0.766 1.879 1.962 1.962 l 16.323 -0.002 c 1.399 0 2.538 1.139 2.538 2.538 v 11.576 C 22.821 81.7 21.682 82.839 20.283 82.839 z M 2.698 67.938 c 0.171 0.43 0.374 0.849 0.605 1.252 l 4.476 7.791 c 1.367 2.38 3.921 3.858 6.666 3.858 h 5.837 c 0.297 0 0.538 -0.241 0.538 -0.538 V 68.725 c 0 -0.297 -0.241 -0.538 -0.538 -0.538 H 3.89 C 3.47 68.157 3.07 68.072 2.698 67.938 z"
-        style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;"
-        transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
-    </g>
-  </svg>
-  <span>Vienna Waste Collection</span>
+  <button mat-button (click)="onReloadCurrentPage()">
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="128"
+      height="60" viewBox="60 60 10 128" xml:space="preserve">
+      <defs>
+      </defs>
+      <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;"
+        transform="translate(94.33151750972763 94.3315175097276) scale(0.74 0.74)">
+        <path
+          d="M 48.877 89.165 c -0.566 0 -1.122 -0.222 -1.541 -0.641 l -14.255 -14.26 c -1.23 -1.231 -1.23 -3.236 0 -4.468 l 14.255 -14.262 c 0.628 -0.628 1.562 -0.812 2.379 -0.474 c 0.818 0.339 1.347 1.13 1.347 2.016 v 6.624 h 18.005 c 0.357 0 0.688 0.19 0.866 0.5 l 5.755 9.966 l 0 0 c 0.746 1.292 0.745 2.835 -0.001 4.127 s -2.082 2.063 -3.573 2.063 l -21.052 0.001 v 6.623 c 0 0.886 -0.528 1.678 -1.347 2.017 C 49.443 89.11 49.158 89.165 48.877 89.165 z M 48.873 56.893 c -0.066 0 -0.107 0.041 -0.123 0.057 L 34.496 71.211 c -0.452 0.452 -0.452 1.188 0 1.64 L 48.75 87.11 c 0.021 0.021 0.091 0.084 0.199 0.04 c 0.112 -0.047 0.112 -0.139 0.112 -0.169 v -7.623 c 0 -0.553 0.447 -1 1 -1 l 22.052 -0.001 c 0.769 0 1.457 -0.397 1.842 -1.063 c 0.384 -0.666 0.385 -1.461 0 -2.127 l -5.466 -9.466 H 50.062 c -0.553 0 -1 -0.447 -1 -1 v -7.624 c 0 -0.03 0 -0.121 -0.112 -0.168 C 48.921 56.897 48.896 56.893 48.873 56.893 z"
+          style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;"
+          transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+        <path
+          d="M 79.373 78.291 c -0.333 0 -0.658 -0.166 -0.848 -0.468 c -0.286 -0.455 -0.161 -1.055 0.282 -1.357 c 0.755 -0.516 1.244 -1.603 0.718 -2.681 L 71.362 59.65 c -0.339 -0.587 -0.429 -1.271 -0.254 -1.926 c 0.176 -0.655 0.596 -1.202 1.183 -1.542 l 1.299 -0.75 l 0 0 l 8.726 -5.038 c 1.211 -0.697 2.768 -0.283 3.468 0.93 l 2.919 5.056 c 1.729 2.995 1.726 6.714 -0.011 9.706 l -4.51 7.771 c -1.035 1.783 -2.525 3.271 -4.31 4.3 C 79.715 78.248 79.543 78.291 79.373 78.291 z M 74.59 57.165 l -1.299 0.75 c -0.124 0.071 -0.213 0.188 -0.25 0.327 c -0.037 0.139 -0.019 0.283 0.054 0.408 l 8.196 14.196 c 0.185 0.377 0.308 0.769 0.374 1.163 c 0.288 -0.365 0.552 -0.752 0.786 -1.156 l 4.51 -7.771 c 1.378 -2.374 1.382 -5.325 0.009 -7.702 l -2.919 -5.056 c -0.148 -0.258 -0.479 -0.347 -0.735 -0.197 L 74.59 57.165 z"
+          style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;"
+          transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+        <path
+          d="M 69.321 47.246 c -0.27 0 -0.543 -0.034 -0.814 -0.107 l -19.479 -5.215 c -0.855 -0.229 -1.482 -0.943 -1.599 -1.821 c -0.116 -0.879 0.305 -1.733 1.072 -2.176 l 5.736 -3.313 l -9.003 -15.593 c -0.178 -0.31 -0.178 -0.69 0 -1 l 5.754 -9.966 c 0.746 -1.292 2.081 -2.063 3.573 -2.064 h 0.001 c 1.491 0 2.827 0.771 3.574 2.063 l 10.526 18.231 l 5.735 -3.312 c 0.768 -0.442 1.718 -0.381 2.42 0.159 c 0.703 0.54 1.008 1.441 0.778 2.296 l -5.222 19.474 C 71.997 46.313 70.717 47.246 69.321 47.246 z M 47.255 18.521 L 56.47 34.48 c 0.133 0.229 0.168 0.502 0.1 0.759 s -0.236 0.475 -0.466 0.607 l -6.603 3.812 c -0.026 0.015 -0.105 0.061 -0.09 0.182 c 0.017 0.12 0.104 0.144 0.133 0.151 l 19.479 5.215 c 0.616 0.164 1.254 -0.203 1.42 -0.82 l 5.222 -19.475 c 0.008 -0.03 0.031 -0.118 -0.064 -0.191 c -0.099 -0.076 -0.176 -0.028 -0.202 -0.014 l -6.602 3.812 c -0.478 0.275 -1.091 0.112 -1.366 -0.366 L 56.404 9.055 c -0.385 -0.666 -1.073 -1.063 -1.842 -1.063 h -0.001 c -0.769 0 -1.457 0.398 -1.841 1.064 l 0 0 L 47.255 18.521 z M 51.854 8.556 h 0.01 H 51.854 z"
+          style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;"
+          transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+        <path
+          d="M 38.376 20.33 c -0.44 0 -0.874 -0.115 -1.265 -0.341 l -10.025 -5.788 c -1.212 -0.7 -1.629 -2.255 -0.929 -3.467 l 2.918 -5.056 c 1.727 -2.989 4.94 -4.844 8.39 -4.844 c 0.007 0 0.014 0 0.021 0 l 8.985 0.02 c 2.061 0.004 4.094 0.551 5.88 1.582 c 0.465 0.269 0.635 0.857 0.385 1.333 c -0.251 0.475 -0.829 0.668 -1.317 0.436 c -0.822 -0.395 -2.01 -0.277 -2.681 0.718 l -8.16 14.138 c -0.339 0.587 -0.887 1.007 -1.542 1.183 C 38.818 20.301 38.596 20.33 38.376 20.33 z M 37.466 2.834 c -2.738 0 -5.288 1.472 -6.658 3.844 l -2.918 5.056 c -0.072 0.125 -0.091 0.27 -0.054 0.408 c 0.037 0.139 0.126 0.255 0.251 0.327 l 8.726 5.038 l 0 0 l 1.299 0.75 c 0.125 0.072 0.269 0.092 0.408 0.054 c 0.139 -0.037 0.255 -0.126 0.327 -0.25 l 8.196 -14.197 c 0.235 -0.349 0.509 -0.652 0.812 -0.907 c -0.458 -0.066 -0.922 -0.101 -1.387 -0.102 l -8.985 -0.02 C 37.477 2.834 37.471 2.834 37.466 2.834 z"
+          style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;"
+          transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+        <path
+          d="M 17.056 62.674 H 5.548 c -1.492 0 -2.828 -0.771 -3.574 -2.063 s -0.746 -2.835 0 -4.127 l 10.525 -18.231 L 6.763 34.94 c -0.767 -0.443 -1.188 -1.297 -1.072 -2.175 c 0.116 -0.878 0.744 -1.594 1.599 -1.823 l 19.477 -5.215 c 1.681 -0.455 3.417 0.551 3.869 2.233 l 5.224 19.477 c 0.229 0.855 -0.076 1.757 -0.779 2.296 c -0.703 0.538 -1.652 0.601 -2.419 0.159 l -5.736 -3.313 l -9.002 15.594 C 17.744 62.483 17.414 62.674 17.056 62.674 z M 27.584 27.62 c -0.099 0 -0.2 0.013 -0.3 0.04 L 7.808 32.875 c -0.029 0.008 -0.118 0.032 -0.134 0.152 c -0.016 0.121 0.063 0.167 0.089 0.182 l 6.602 3.811 c 0.479 0.276 0.642 0.888 0.366 1.366 L 3.706 57.483 c -0.384 0.666 -0.384 1.461 0 2.127 c 0.385 0.666 1.073 1.063 1.842 1.063 h 10.931 l 9.213 -15.959 c 0.133 -0.229 0.351 -0.397 0.607 -0.466 c 0.254 -0.07 0.528 -0.033 0.759 0.1 l 6.603 3.812 c 0.026 0.016 0.106 0.06 0.202 -0.013 c 0.097 -0.074 0.073 -0.163 0.065 -0.192 l -5.224 -19.476 C 28.565 27.962 28.096 27.62 27.584 27.62 z"
+          style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;"
+          transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+        <path
+          d="M 20.283 82.839 h -5.837 c -3.459 0 -6.678 -1.863 -8.4 -4.862 l -4.476 -7.791 C 0.542 68.398 0 66.364 0 64.303 c 0 -0.537 0.425 -0.979 0.962 -0.999 c 0.546 -0.026 0.994 0.388 1.035 0.923 c 0.07 0.912 0.766 1.879 1.962 1.962 l 16.323 -0.002 c 1.399 0 2.538 1.139 2.538 2.538 v 11.576 C 22.821 81.7 21.682 82.839 20.283 82.839 z M 2.698 67.938 c 0.171 0.43 0.374 0.849 0.605 1.252 l 4.476 7.791 c 1.367 2.38 3.921 3.858 6.666 3.858 h 5.837 c 0.297 0 0.538 -0.241 0.538 -0.538 V 68.725 c 0 -0.297 -0.241 -0.538 -0.538 -0.538 H 3.89 C 3.47 68.157 3.07 68.072 2.698 67.938 z"
+          style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;"
+          transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+      </g>
+    </svg>
+  </button>
+  <!-- <span>Vienna Waste Collection</span> -->
   <div class="spacer"></div>
   <!-- <a aria-label="Angular on YouTube" target="_blank" rel="noopener" href="https://youtube.com/angular" title="YouTube">
     <svg id="youtube-logo" height="24" width="24" data-name="Logo" xmlns="http://www.w3.org/2000/svg"
@@ -297,40 +209,37 @@
 </div>
 
 <div class="content" role="main">
+  <mat-card>
+    <mat-card-header class="center">
+      <mat-card-title>Vienna Waste Collection</mat-card-title>
+      <mat-card-subtitle>Vienna Waste Collection uses image recognition to identify the type of garbage from an image,
+        and give the classification as well as the correct type of the collection point for that garbage's material for
+        optimal recycling.</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-divider><br></mat-divider>
+      <div id="map"></div>
+      <mat-divider><br></mat-divider>
+      <div class="center">
+        <mat-label>Exact Address </mat-label>
+        <input type="text" matinput id="searchBox" #searchBox>
+      </div>
+      <div id="searchBoxContainer"></div>
+    </mat-card-content>
+    <mat-card-actions>
+      <file-upload (classification)="onClassification($event)" #fileUpload></file-upload>
+    </mat-card-actions>
+    <mat-card-footer class="center">
+      <mat-card-subtitle *ngIf="!!closestAddress">
+        <p>The closest address to dispose it is</p>
+        <p><b>{{closestAddress}}</b></p>
+      </mat-card-subtitle>
+      <mat-divider><br></mat-divider>
+    </mat-card-footer>
+  </mat-card>
 
-  <!-- Highlight Card -->
-  <div class="card-container">
-    <div class="card highlight-card">
-      <p>Vienna Waste Collection uses image recognition to identify the type of garbage from an image, and give the
-        classification as well as the correct type of the collection point for that garbage's material for optimal
-        recycling.
-      </p>
-    </div>
-  </div>
+  <br>
 
-  <div class="card-container max">
-    <div id="map"></div>
-  </div>
-  <div class="card-container max">
-    <span>Exact Address &nbsp;</span><input type="text" autoComplete="true" id="searchBox">
-  </div>
-  <div id="searchBoxContainer"></div>
-
-  <file-upload (classification)="onClassification($event)"></file-upload>
-
-  <div class="card-container" *ngIf="!!category">
-    <p>The item has been classified as: <b>{{category}}</b></p>
-  </div>
-
-  <div class="card-container" *ngIf="!!closestAddress">
-    <div class="card highlight-card">
-      <p>The closest address to dispose it is</p>
-      <p><i>{{closestAddress}}</i></p>
-    </div>
-  </div>
-
-
-  <!-- Footer -->
   <footer>
     Love Vienna Waste Collection?&nbsp;
     <a href="https://github.com/TrashTransformers/ViennaWasteCollection" target="_blank" rel="noopener"> Give our repo a
