@@ -1,9 +1,9 @@
 import "bingmaps";
 import { initialize, loadModule, whenLoaded, moduleNames } from "bing-maps-loader";
-import { Component, OnInit } from '@angular/core';
-import { WasteTypeControllerService } from './core/api/locate'
-import { Classification } from './file-upload.component';
+import { WasteCollectionPointResponse, WasteTypeControllerService } from './core/api/locate'
+import { Classification, FileUploadComponent } from './file-upload.component';
 import { environment } from "src/environments/environment";
+import { Component, OnInit, ViewChild } from "@angular/core";
 
 @Component({
   selector: 'app-root',
@@ -11,9 +11,9 @@ import { environment } from "src/environments/environment";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+  
+  @ViewChild('fileUpload') fileUpload: any;
 
-  category: string = "";
-  confidence: string = "";
   closestAddress: string = "";
   searchBox: string = "#searchBox";
   searchBoxContainer: string = "#searchBoxContainer";
@@ -61,8 +61,7 @@ export class AppComponent implements OnInit {
           this.searchBox,
           this.searchBoxContainer,
           (result) => {
-            this.map.entities.remove(this.yourPin);
-            this.map.entities.remove(this.binPin);
+            this.clear();
             this.yourPin = new Microsoft.Maps.Pushpin(result.location, {
               title: "You",
               text: "5",
@@ -74,47 +73,44 @@ export class AppComponent implements OnInit {
       });
   }
 
-  onClassification(event: Classification) {
-    this.category = event.category;
-    // this.confidence = event.confidence.toString();
-    const location = this.yourPin.getLocation();
-    this.callApi(location.longitude, location.latitude);
+  onReloadCurrentPage() {
+    window.location.reload();
   }
 
-  callApi(longitude: number, latitude: number) {
-    this.wasteTypeControllerService.calculateNearestCollectionPoint(this.category, `${latitude},${longitude}`).subscribe((result: any) => {
+  onClassification(event: Classification) {
+    const location = this.yourPin.getLocation();
+    this.callApi(event.category, location.longitude, location.latitude);
+  }
+
+  callApi(category :string, longitude: number, latitude: number) {
+    this.wasteTypeControllerService.calculateNearestCollectionPoint(category, `${latitude},${longitude}`).subscribe((result:any) => {
       var reader = new FileReader();
       reader.onload = () => {
-        this.closestAddress = reader.result as string;
-        const address = this.closestAddress.substring(this.closestAddress.indexOf('Adresse: ')+9);
+        const response = JSON.parse(reader.result as string) as WasteCollectionPointResponse;
+        const typeOfDisposal = response.typeOfDisposal as string
+        this.closestAddress = response.address as string;
         whenLoaded
-        .then(() => loadModule(moduleNames.Search))
         .then(() => {
           this.map.entities.remove(this.binPin);
-          const manager = new Microsoft.Maps.Search.SearchManager(this.map);
-          const self = this;
-          const options: Microsoft.Maps.Search.IGeocodeRequestOptions = {
-            callback: function(geocodeResult: Microsoft.Maps.Search.IGeocodeResult, userData: any) {
-              const result = geocodeResult.results.at(0);
-              const location = result?.location;
-              if (location) {
-                self.binPin = new Microsoft.Maps.Pushpin(location, {
-                  title: "Bin",
-                  subTitle: result?.address.addressLine,
-                  text: "5",
-                  color: "green"
-                });                
-                self.map.entities.push(self.binPin);
-                self.map.setView({ center: location, zoom: 17 });
-              }
-            },
-            where: address,
-            includeCountryIso2:true,            
-          }
-          manager.geocode(options);
+          const location = new Microsoft.Maps.Location(response.longitude, response.latitude);
+          this.binPin = new Microsoft.Maps.Pushpin(location, {
+            title: typeOfDisposal,
+            subTitle: this.closestAddress,
+            text: "5",
+            color: "green"
+          });
+          this.map.entities.push(this.binPin);
+          this.map.setView({ center: location, zoom: 17 });
         });
       }
       reader.readAsText(<Blob>result);
     });
+  }
+
+  clear() {
+    this.closestAddress = "";    
+    this.map.entities.remove(this.yourPin);
+    this.map.entities.remove(this.binPin);
+    (<FileUploadComponent>this.fileUpload).clear();
   }
 }

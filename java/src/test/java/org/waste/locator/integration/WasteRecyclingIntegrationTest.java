@@ -7,59 +7,67 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.waste.locator.entity.CollectionPoint;
+import org.waste.locator.model.WasteCollectionPointResponse;
 import org.waste.locator.service.WasteTypeService;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class WasteRecyclingIntegrationTest {
 	@LocalServerPort
     private int port;
+
     private final String coordinates = "57.548142,68.154844";
 
     @Test
     public void shouldReturnGlasCollectionPoint() {
-        String result = callService("glass", coordinates);
+        WasteCollectionPointResponse result = callService("glass", coordinates);
 
-        assertThat("Altglas - Adresse: Telephonweg neben 412; 22. Bezirk").isEqualTo(result);
+        assertThat("Altglas").isEqualTo(result.getTypeOfDisposal());
+        assertThat("Telephonweg neben 412; 22. Bezirk").isEqualTo(result.getAddress());
     }
 
     @Test
     public void shouldReturnGlasCollectionPointNagarroClosest() {
-        String result = callService("glass", "48.17111801511212 16.332124234017812");
+        WasteCollectionPointResponse result = callService("glass", "48.17111801511212 16.332124234017812");
 
-        assertThat("Altglas - Adresse: Wagenseilgasse neben 5; 12. Bezirk").isEqualTo(result);
+        assertThat("Altglas").isEqualTo(result.getTypeOfDisposal());
+        assertThat("Wagenseilgasse neben 5; 12. Bezirk").isEqualTo(result.getAddress());
+        assertThat(48.17033988701541).isEqualTo(result.getLongitude());
+        assertThat(16.331734916937084).isEqualTo(result.getLatitude());
     }
 
-    private String callService(String wasteType, String coordinates) {
+    private WasteCollectionPointResponse callService(String wasteType, String coordinates) {
         return given()
                 .when()
                 .get(createURLWithPort("/waste/v1/" + wasteType+"/" + coordinates))
                 .then()
                 .statusCode(200)
                 .extract()
-                .asString();
+                .as(WasteCollectionPointResponse.class);
     }
 
     @Test
     public void shouldReturnPlasticlCollectionPoint() {
-        String result = callService("plastic", coordinates);
+        WasteCollectionPointResponse result = callService("plastic", coordinates);
 
-        assertThat("Gelbe Tonne - Adresse: Telephonweg neben 412; 22. Bezirk").isEqualTo(result);
+        assertThat("Gelbe Tonne").isEqualTo(result.getTypeOfDisposal());
+        assertThat("Telephonweg neben 412; 22. Bezirk").isEqualTo(result.getAddress());
     }
 
     @Test
     public void shouldReturnPaperCollectionPoint() {
-        String result = callService("paper", coordinates);
+        WasteCollectionPointResponse result = callService("paper", coordinates);
 
-        assertThat("Altpapier - Adresse: Telephonweg neben 412; 22. Bezirk").isEqualTo(result);
+        assertThat("Altpapier").isEqualTo(result.getTypeOfDisposal());
+        assertThat("Telephonweg neben 412; 22. Bezirk").isEqualTo(result.getAddress());
     }
 
     @Test
     public void shouldReturnMetallCollectionPoint() {
-        String result = callService("metal", coordinates);
+        WasteCollectionPointResponse result = callService("metal", coordinates);
 
-        assertThat("Gelbe Tonne - Adresse: Telephonweg neben 412; 22. Bezirk").isEqualTo(result);
+        assertThat("Gelbe Tonne").isEqualTo(result.getTypeOfDisposal());
+        assertThat("Telephonweg neben 412; 22. Bezirk").isEqualTo(result.getAddress());
     }
 
     @Test

@@ -2,15 +2,14 @@
 
 <div class="file-upload">
 
-    <span>Select a image to classify </span>
+    <span>Select an image to classify </span>
 
     <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
         <mat-icon>attach_file</mat-icon>
     </button>
 
     <div class="file-preview" *ngIf="imageURL && imageURL !== ''">
-        <img [src]="imageURL" [alt]="fileName">
-        <p>{{fileName}}</p>
+        <img [src]="imageURL" [alt]="fileName" id="preview" #preview>
+        <p *ngIf="!!category">The item<span *ngIf="fileName"><i> {{fileName}}</i></span> has been classified as <b>{{category}}</b></p>
     </div>
-
 </div>

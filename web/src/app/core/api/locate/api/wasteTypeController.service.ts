@@ -18,6 +18,8 @@ import { HttpClient, HttpHeaders, HttpParams,
 import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
+// @ts-ignore
+import { WasteCollectionPointResponse } from '../model/wasteCollectionPointResponse';
 
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -98,9 +100,9 @@ export class WasteTypeControllerService implements WasteTypeControllerServiceInt
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public calculateNearestCollectionPoint(wasteType: string, currentCoordinates: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<string>;
-    public calculateNearestCollectionPoint(wasteType: string, currentCoordinates: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpResponse<string>>;
-    public calculateNearestCollectionPoint(wasteType: string, currentCoordinates: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpEvent<string>>;
+    public calculateNearestCollectionPoint(wasteType: string, currentCoordinates: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<WasteCollectionPointResponse>;
+    public calculateNearestCollectionPoint(wasteType: string, currentCoordinates: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpResponse<WasteCollectionPointResponse>>;
+    public calculateNearestCollectionPoint(wasteType: string, currentCoordinates: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpEvent<WasteCollectionPointResponse>>;
     public calculateNearestCollectionPoint(wasteType: string, currentCoordinates: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<any> {
         if (wasteType === null || wasteType === undefined) {
             throw new Error('Required parameter wasteType was null or undefined when calling calculateNearestCollectionPoint.');
@@ -141,7 +143,7 @@ export class WasteTypeControllerService implements WasteTypeControllerServiceInt
         }
 
         let localVarPath = `/waste/v1/${this.configuration.encodeParam({name: "wasteType", value: wasteType, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}/${this.configuration.encodeParam({name: "currentCoordinates", value: currentCoordinates, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
-        return this.httpClient.request<string>('get', `${this.configuration.basePath}${localVarPath}`,
+        return this.httpClient.request<WasteCollectionPointResponse>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,

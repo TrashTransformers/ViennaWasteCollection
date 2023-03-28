@@ -1,5 +1,4 @@
 .gitignore
-.openapi-generator-ignore
 README.md
 api.module.ts
 api/api.ts
@@ -10,5 +9,6 @@ encoder.ts
 git_push.sh
 index.ts
 model/models.ts
+model/wasteCollectionPointResponse.ts
 param.ts
 variables.ts
